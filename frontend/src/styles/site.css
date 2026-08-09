@@ -190,6 +190,49 @@ a, button, [role='button'], label, input, select {
     transparent 4px
   );
 }
+.x-hero-3d {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  cursor: grab;
+  touch-action: none; /* let OrbitControls own touch gestures on mobile */
+}
+.x-hero-3d:active {
+  cursor: grabbing;
+}
+.x-hero-3d canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  background: transparent;
+  outline: none;
+}
+/* Static foreground crowd — layered IN FRONT of the 3D character. */
+.x-hero-media img.x-hero-crowd {
+  position: absolute;
+  left: 50%;
+  top: auto;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: auto;
+  height: clamp(240px, 58vh, 620px);
+  max-width: 98vw;
+  object-fit: contain;
+  object-position: center bottom;
+  pointer-events: none; /* clicks/drags pass through to the 3D canvas */
+  user-select: none;
+  -webkit-user-drag: none;
+  z-index: 6;
+  filter: contrast(1.05) drop-shadow(0 -10px 30px rgba(0, 0, 0, 0.35));
+  will-change: transform;
+}
+@media (max-width: 900px) {
+  .x-hero-media img.x-hero-crowd {
+    width: 120%;
+    height: auto;
+    max-width: none;
+  }
+}
 .x-hero-controls {
   position: absolute;
   right: 28px;

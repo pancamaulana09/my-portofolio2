@@ -311,11 +311,21 @@ agent_communication:
         automated frontend testing.
     - agent: "main"
       message: >
-        FUSION UPDATE: User provided second reference video (clean showcase-site
-        aesthetic). Combined into existing design as 5 new home sections:
-        StatementIntro (word reveal), ShowcaseTheater (filmstrip carousel with
-        glitch bg transitions + auto-advance), ScaleMedia (sticky scroll-grow frame
-        reusing user's uploaded hero media), ArchiveIndex (giant list + hover
-        preview), PosterField (3D drifting procedural posters). Fixed PageFX
-        StrictMode double-effect bug. All verified via screenshots; still
-        frontend-only per user's choice; user tests manually.
+        HERO 3D + CROWD: Added an interactive 3D character to the center of the
+        home hero using React Three Fiber (three 0.171, @react-three/fiber 9.7,
+        @react-three/drei 10.7). Character auto-rotates (right->left) via useFrame
+        and is user-draggable via OrbitControls (auto-rotate pauses while dragging;
+        zoom/pan disabled, polar angle clamped). Uploaded GLB was optimized with
+        meshopt (gltf-transform) from 12.5MB -> 2MB, decoded locally (no CDN).
+        Component is code-split (React.lazy) so it never blocks first paint; a
+        %-progress loader shows during model load. Added a static transparent-PNG
+        crowd (converted to 229KB WebP, alpha-trimmed) as a foreground layer
+        (z-index 6) IN FRONT of the 3D character (z-index 5), pointer-events:none
+        so drags pass through to the canvas. Responsive: bottom-center cluster on
+        desktop, full-width band on mobile (<=900px). Verified via screenshots:
+        model renders centered with lower body occluded by crowd; auto-rotation
+        confirmed (orientation changes each frame + Playwright cannot stabilize the
+        animating canvas); Replace Media button still clickable (z-index 10).
+        Files: frontend/src/components/site/Character3D.jsx (new),
+        frontend/src/components/site/Hero.jsx, frontend/src/styles/site.css,
+        public/models/character.glb, public/images/crowd.webp.

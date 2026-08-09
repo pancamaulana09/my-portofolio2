@@ -1,8 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, Suspense, lazy } from 'react';
 import { Upload, RotateCcw } from 'lucide-react';
 import GlitchCanvas from './GlitchCanvas';
 import { saveHeroMedia, loadHeroMedia, clearHeroMedia } from '../../lib/mediaStore';
 import { useToast } from '../../hooks/use-toast';
+
+// Heavy WebGL scene is code-split so it never blocks first paint.
+const Character3D = lazy(() => import('./Character3D'));
 
 // Full-viewport hero. Shows the procedural glitch animation by default;
 // the user can replace it with their own image or video (kept in IndexedDB).
@@ -50,7 +53,9 @@ export default function Hero() {
   const onReset = async () => {
     try {
       await clearHeroMedia();
-    } catch (e) {}
+    } catch (e) {
+      /* ignore storage clear errors */
+    }
     if (urlRef.current) URL.revokeObjectURL(urlRef.current);
     urlRef.current = null;
     setMedia(null);
@@ -65,6 +70,23 @@ export default function Hero() {
         {media?.type === 'video' && (
           <video src={media.url} autoPlay muted loop playsInline data-testid="hero-user-video" />
         )}
+
+        {/* Interactive 3D character, centered over the hero backdrop. */}
+        <div className="x-hero-3d" data-testid="hero-3d-layer">
+          <Suspense fallback={null}>
+            <Character3D />
+          </Suspense>
+        </div>
+
+        {/* Static crowd, layered in FRONT of the 3D character (foreground). */}
+        <img
+          src="/images/crowd.webp"
+          alt="A crowd watching"
+          className="x-hero-crowd"
+          draggable={false}
+          aria-hidden="true"
+          data-testid="hero-crowd"
+        />
       </div>
 
       <div className="x-hero-controls">
