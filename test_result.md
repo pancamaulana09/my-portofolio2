@@ -101,3 +101,156 @@
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
+
+user_problem_statement: >
+  Clone the design/UX of the 2xA Studio website (reference video provided by user).
+  Keep original branding (2xA STUDIO), multi-page (Home, About, Projects, Project Detail,
+  Contact, Privacy). Hero media is a placeholder (procedural glitch canvas) with a
+  "Replace Media" upload feature (image or video) persisted locally in IndexedDB.
+
+frontend:
+  - task: "Fixed header with live ATH/AMS clocks and nav (mix-blend-difference)"
+    implemented: true
+    working: true
+    file: "frontend/src/components/site/Header.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "main"
+          comment: "Verified via screenshots on all pages; clocks tick with blinking colon."
+  - task: "Contextual fixed bottom status bar + STUDIO SOUNDS toggle (WebAudio blips)"
+    implemented: true
+    working: true
+    file: "frontend/src/components/site/FooterBar.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "main"
+          comment: "Section-context words verified (e.g. 'ON COMPUTATION AS A WAY OF THINKING' on About). Audio toggle not yet auto-tested."
+  - task: "Hero with procedural glitch canvas + Replace Media upload (IndexedDB persistence)"
+    implemented: true
+    working: true
+    file: "frontend/src/components/site/Hero.jsx, GlitchCanvas.jsx, lib/mediaStore.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "main"
+          comment: "Glitch canvas renders (verified). Upload/reset flow implemented, not yet auto-tested."
+  - task: "Dot-matrix giant typography (2xA STUDIO) with entrance/jitter animation"
+    implemented: true
+    working: true
+    file: "frontend/src/components/site/DotMatrix.jsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "main"
+          comment: "Verified via temporary preview route screenshot."
+  - task: "Decode/scramble text animation with blue highlight"
+    implemented: true
+    working: true
+    file: "frontend/src/components/site/DecodeText.jsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "main"
+          comment: "Verified mid-animation on Projects page screenshot."
+  - task: "Home page (hero, brandmark, generative grid, manifesto, selected projects, achievements, giant footer)"
+    implemented: true
+    working: true
+    file: "frontend/src/pages/Home.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "main"
+          comment: "Sections verified individually; full scroll flow not yet auto-tested."
+  - task: "About page (manifesto + parallax words, expertise, blue team section, achievements)"
+    implemented: true
+    working: true
+    file: "frontend/src/pages/About.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "main"
+          comment: "Verified via screenshot; parallax overlay words render over mono columns."
+  - task: "Projects list + Project detail pages (themed backgrounds, prev/next nav)"
+    implemented: true
+    working: true
+    file: "frontend/src/pages/Projects.jsx, ProjectDetail.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "main"
+          comment: "Projects page verified via screenshot; detail page not yet auto-tested."
+  - task: "Contact page with mock form (localStorage) - MOCKED, no backend yet"
+    implemented: true
+    working: true
+    file: "frontend/src/pages/Contact.jsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "main"
+          comment: "Verified via screenshot. Form stores messages in localStorage (MOCK)."
+  - task: "Page transition overlay (typed blue word blocks), cookie banner, custom cursor"
+    implemented: true
+    working: true
+    file: "frontend/src/components/site/PageFX.jsx, CookieBanner.jsx, styles/site.css"
+    stuck_count: 0
+    priority: "low"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "main"
+          comment: "Cookie banner verified (accept persists). Transition overlay implemented, not yet auto-tested."
+
+backend:
+  - task: "No backend implemented yet (frontend-only MVP with mocks)"
+    implemented: false
+    working: "NA"
+    file: "backend/server.py"
+    stuck_count: 0
+    priority: "low"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Template backend untouched. Contact form + hero media are local-only mocks."
+
+metadata:
+  created_by: "main_agent"
+  version: "1.0"
+  test_sequence: 0
+  run_ui: false
+
+test_plan:
+  current_focus:
+    - "Frontend-only MVP complete; awaiting user decision on backend + automated frontend testing"
+  stuck_tasks: []
+  test_all: false
+  test_priority: "high_first"
+
+agent_communication:
+    - agent: "main"
+      message: >
+        Frontend-only clone complete with mock.js data. Verified via screenshots:
+        Home hero (glitch canvas), Projects, About, Contact, dot-matrix + generative
+        grid sections. Contact form and hero media replacement are LOCAL-ONLY mocks
+        (localStorage / IndexedDB). Backend not started; will ask user before
+        automated frontend testing.
