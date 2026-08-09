@@ -32,7 +32,29 @@ export const statusWords = {
   noticed: ['GOOD', 'WORK', 'TENDS', 'TO', 'GET', 'NOTICED'],
   studio: ['CODE', 'DRIVEN', 'DESIGN', 'STUDIO', 'BETWEEN', 'AMSTERDAM', '&', 'ATHENS'],
   contact: ['SAY', 'HELLO', '—', 'WE', 'READ', 'EVERYTHING'],
+  showcase: ['SELECTED', 'WORK', '(', 'IN', 'MOTION', ')'],
+  archive: ['FULL', 'ARCHIVE', '—', 'EVERY', 'SYSTEM', 'WE', 'SHIPPED'],
+  output: ['OUTPUT', 'PRINTED', 'STRAIGHT', 'FROM', 'THE', 'MACHINE'],
+  signal: ['RAW', 'INPUT', '—', 'REPROCESSED', 'IN', 'REAL', 'TIME'],
 };
+
+// Giant statement (Foundations-style intro in the studio voice — original writing)
+export const statement = {
+  label: 'Studio',
+  text: 'We design systems that design. Code is the raw material here — every identity, website and image starts as a process, gets released into motion, and is observed until it holds.',
+};
+
+// Full Archive index — projects plus internal generative studies
+export const archive = [
+  { name: 'ABR Festival', path: '/projects/abr-festival', image: 'https://images.unsplash.com/photo-1619229725920-ac8b63b0631a?q=80&w=800&auto=format&fit=crop' },
+  { name: 'Buna Tetu', path: '/projects/buna-tetu', image: 'https://images.unsplash.com/photo-1563050860-87d45eaaeabb?q=80&w=800&auto=format&fit=crop' },
+  { name: 'Miao World', path: '/projects/miao-world', image: 'https://images.pexels.com/photos/13129483/pexels-photo-13129483.jpeg?auto=compress&cs=tinysrgb&w=800' },
+  { name: 'Climate Journalism', path: '/projects/climate-journalism', image: 'https://images.unsplash.com/photo-1583521214690-73421a1829a9?q=80&w=800&auto=format&fit=crop' },
+  { name: 'Who Owns The Media', path: '/projects/who-owns-the-media', image: 'https://images.unsplash.com/photo-1644088379091-d574269d422f?q=80&w=800&auto=format&fit=crop' },
+  { name: 'Dither Studies', path: '/projects', image: 'https://images.unsplash.com/photo-1634368998864-8984df61cdda?q=80&w=800&auto=format&fit=crop' },
+  { name: 'Signal Decay', path: '/projects', image: 'https://images.unsplash.com/photo-1635438004811-54b5864e57eb?q=80&w=800&auto=format&fit=crop' },
+  { name: 'Frequency Atlas', path: '/projects', image: 'https://images.unsplash.com/photo-1722970651121-6a3ea5666ff7?q=80&w=800&auto=format&fit=crop' },
+];
 
 // Giant parallax words over the manifesto section
 export const overlayWords = [

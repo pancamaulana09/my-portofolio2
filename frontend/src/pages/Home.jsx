@@ -7,7 +7,12 @@ import Manifesto from '../components/site/sections/Manifesto';
 import SelectedProjects from '../components/site/sections/SelectedProjects';
 import Achievements from '../components/site/sections/Achievements';
 import GiantFooter from '../components/site/sections/GiantFooter';
-import { genGridImages, statusWords } from '../mock';
+import ShowcaseTheater from '../components/site/sections/ShowcaseTheater';
+import StatementIntro from '../components/site/sections/StatementIntro';
+import ScaleMedia from '../components/site/sections/ScaleMedia';
+import ArchiveIndex from '../components/site/sections/ArchiveIndex';
+import PosterField from '../components/site/sections/PosterField';
+import { genGridImages, statusWords, statement } from '../mock';
 import { useSectionStatus } from '../lib/statusBus';
 
 function BrandMark() {
@@ -65,9 +70,14 @@ export default function Home() {
     <main data-testid="home-page">
       <Hero />
       <BrandMark />
+      <StatementIntro label={statement.label} text={statement.text} testId="statement-section" />
+      <ShowcaseTheater />
       <GenerativeGrid />
       <Manifesto showReadMore />
+      <ScaleMedia />
       <SelectedProjects limit={3} />
+      <ArchiveIndex />
+      <PosterField />
       <Achievements tone="dark" />
       <GiantFooter tone="light" />
     </main>

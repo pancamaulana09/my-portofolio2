@@ -8,15 +8,15 @@ export default function PageFX() {
   const location = useLocation();
   const [state, setState] = useState('idle'); // idle | in | out
   const [words, setWords] = useState([]);
-  const first = useRef(true);
+  const prevPath = useRef(location.pathname);
   const timers = useRef([]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    if (first.current) {
-      first.current = false;
-      return;
+    if (prevPath.current === location.pathname) {
+      return; // initial mount (incl. StrictMode double-invoke) — no transition
     }
+    prevPath.current = location.pathname;
     timers.current.forEach(clearTimeout);
     timers.current = [];
 
