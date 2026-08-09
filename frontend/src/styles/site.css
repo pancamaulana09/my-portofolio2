@@ -177,6 +177,23 @@ a, button, [role='button'], label, input, select {
   object-fit: cover;
   display: block;
 }
+/* Slowest parallax layer — the generative signal / user media. */
+.x-hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  transform-origin: center center;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+.x-hero-bg > canvas,
+.x-hero-bg > img,
+.x-hero-bg > video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 .x-hero-scan::after {
   content: '';
   position: absolute;
@@ -196,6 +213,8 @@ a, button, [role='button'], label, input, select {
   z-index: 5;
   cursor: grab;
   touch-action: none; /* let OrbitControls own touch gestures on mobile */
+  will-change: transform;
+  backface-visibility: hidden;
 }
 .x-hero-3d:active {
   cursor: grabbing;
