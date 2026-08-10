@@ -13,6 +13,7 @@ import ScaleMedia from '../components/site/sections/ScaleMedia';
 import ArchiveIndex from '../components/site/sections/ArchiveIndex';
 import PosterField from '../components/site/sections/PosterField';
 import ReadySection from '../components/site/sections/ReadySection';
+import BlogJournal from '../components/site/sections/BlogJournal';
 import { genGridImages, statusWords, statement } from '../mock';
 import { useSectionStatus } from '../lib/statusBus';
 
@@ -80,6 +81,7 @@ export default function Home() {
       <ArchiveIndex />
       <PosterField />
       <Achievements tone="dark" />
+      <BlogJournal />
       <ReadySection />
       <GiantFooter tone="light" />
     </main>

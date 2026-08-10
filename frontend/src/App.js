@@ -17,6 +17,8 @@ import Projects from "@/pages/Projects";
 import ProjectDetail from "@/pages/ProjectDetail";
 import Contact from "@/pages/Contact";
 import Privacy from "@/pages/Privacy";
+import Blog from "@/pages/Blog";
+import BlogDetail from "@/pages/BlogDetail";
 
 function Shell() {
   const location = useLocation();
@@ -38,6 +40,8 @@ function Shell() {
             <Route path="/about" element={<About />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/projects/:slug" element={<ProjectDetail />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogDetail />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacy" element={<Privacy />} />
           </Routes>

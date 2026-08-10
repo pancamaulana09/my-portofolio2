@@ -43,6 +43,7 @@ export const site = {
   nav: [
     { label: 'ABOUT', path: '/about' },
     { label: 'PROJECTS', path: '/projects' },
+    { label: 'BLOG', path: '/blog' },
     { label: 'CONTACT', path: '/contact' },
   ],
   footerLinks: [

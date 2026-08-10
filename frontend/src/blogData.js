@@ -1,0 +1,189 @@
+// ======================= JOURNAL / BLOG DATA =======================
+const BIMG = {
+  react: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200',
+  perf: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200',
+  iot: 'https://images.unsplash.com/photo-1518770660439-4636190af475?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200',
+  three: 'https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200',
+  system: 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200',
+  ship: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200',
+};
+
+export const blogStatusWords = ['NOTES', 'FROM', 'THE', 'BUILD', '—', 'JOURNAL'];
+
+export const blogIntro = [
+  'Notes from real builds — what worked, what broke, and what I would do differently.',
+  'Short, practical writing on frontend, performance, IoT and the craft of shipping.',
+];
+
+export const posts = [
+  {
+    id: 'react-performance-budget',
+    num: '01',
+    title: 'A Performance Budget for React Apps',
+    excerpt: 'Fast is a feature. How I set hard numbers for bundle size, LCP and interaction latency before writing the first component.',
+    date: 'MAY 2026',
+    readTime: '6 MIN',
+    tags: ['React', 'Performance'],
+    image: BIMG.perf,
+    content: [
+      {
+        h: 'Numbers before components',
+        body: [
+          'Every project I start now gets a performance budget on day one: a maximum JS payload, a target LCP, and an interaction latency ceiling. Not because the client asked — because retrofitting speed into a slow app costs three times more than building it fast.',
+          'The budget forces early decisions. If the initial bundle must stay under 170KB gzipped, you think twice before pulling in a 40KB date library for one formatting call.',
+        ],
+      },
+      {
+        h: 'Where React apps actually get slow',
+        body: [
+          'In four years of audits the pattern repeats: it is rarely React itself. It is unbounded re-renders from context misuse, images shipped at 4x the rendered size, and third-party scripts loaded synchronously in the head.',
+          'Code-splitting by route is table stakes. The bigger wins come from splitting by interaction — loading the heavy chart library only when the dashboard tab is actually opened.',
+        ],
+      },
+      {
+        h: 'Measuring in the real world',
+        body: [
+          'Lighthouse on a dev machine lies. I measure on a throttled mid-range Android over 4G, because that is where most Indonesian users actually live. If it feels instant there, it flies everywhere else.',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'esp32-home-assistant',
+    num: '02',
+    title: 'ESP32 + Home Assistant: Lessons from the Greenhouse',
+    excerpt: 'Building the IoT hydroponic system taught me more about reliability than any web project. Sensors fail. Networks drop. Design for it.',
+    date: 'APR 2026',
+    readTime: '8 MIN',
+    tags: ['IoT', 'ESP32'],
+    image: BIMG.iot,
+    content: [
+      {
+        h: 'Hardware is honest',
+        body: [
+          'A web bug produces a stack trace. A hardware bug produces dead plants. When I built the hydroponic automation system, the first month was a humbling loop of corroded sensors, brownouts and WiFi dead zones.',
+          'The fix was never clever code — it was defensive design: watchdog timers, local fallback logic when the network drops, and sensor readings validated against physical plausibility before acting on them.',
+        ],
+      },
+      {
+        h: 'Why Home Assistant',
+        body: [
+          'I evaluated writing a custom dashboard first. Home Assistant won because automation logic lives close to the devices, survives internet outages, and the ecosystem already solved auth, history and alerting.',
+          'The ESP32 nodes speak MQTT — tiny, resilient, and easy to debug with nothing more than a terminal subscription.',
+        ],
+      },
+      {
+        h: 'What transfers back to the web',
+        body: [
+          'IoT made me a better web developer. Assume the network is hostile. Make every operation idempotent. Show the user the last known good state instead of a spinner. These habits now shape every dashboard I build.',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'threejs-on-a-budget',
+    num: '03',
+    title: 'Three.js Without Melting the GPU',
+    excerpt: 'Interactive 3D sells — until it drops to 12fps on a laptop. Practical limits for React Three Fiber scenes that stay smooth.',
+    date: 'MAR 2026',
+    readTime: '7 MIN',
+    tags: ['Three.js', 'R3F'],
+    image: BIMG.three,
+    content: [
+      {
+        h: 'The 3D tax',
+        body: [
+          'Every WebGL canvas on a page costs battery, memory and thermal headroom. The question is never "can we add 3D" — it is "does this scene earn its tax". A rotating product model usually does. A decorative particle background usually does not.',
+        ],
+      },
+      {
+        h: 'Rules I build by',
+        body: [
+          'Keep draw calls under 100. Merge geometries aggressively. Bake lighting into textures whenever the scene is static. Use draco-compressed GLTFs and load them behind an interaction, never in the critical path.',
+          'React Three Fiber makes composition beautiful, but every useFrame callback is a 60Hz loop — I keep them countable on one hand and move math into the vertex shader where possible.',
+        ],
+      },
+      {
+        h: 'Degrade with dignity',
+        body: [
+          'I ship a static render fallback for low-power devices, gated by a quick GPU benchmark on mount. Users on an old phone see a beautiful image instead of a slideshow. Nobody ever complained about a fast fallback.',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'design-systems-tailwind',
+    num: '04',
+    title: 'A One-Person Design System',
+    excerpt: 'You do not need a design team to have design discipline. Tokens, constraints and a strict component diet keep solo projects coherent.',
+    date: 'FEB 2026',
+    readTime: '5 MIN',
+    tags: ['Design', 'Tailwind'],
+    image: BIMG.system,
+    content: [
+      {
+        h: 'Constraints are the system',
+        body: [
+          'A design system is not a Figma library — it is a set of decisions you refuse to remake. Two font families. One accent color. A spacing scale you never break. Everything on this site follows that diet, and it is why it reads as one voice.',
+        ],
+      },
+      {
+        h: 'Tokens first, components second',
+        body: [
+          'I start every project by defining CSS variables: color, type, spacing, easing. Components come after, and they are only allowed to consume tokens. When a client wants a rebrand, it becomes an afternoon instead of a rewrite.',
+          'Tailwind fits this perfectly once you treat the config as the single source of truth and ban arbitrary values in review.',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'shipping-is-a-skill',
+    num: '05',
+    title: 'Shipping Is a Skill, Not an Event',
+    excerpt: 'The gap between "works on my machine" and "works for the client" is where most freelance projects die. My deployment checklist.',
+    date: 'JAN 2026',
+    readTime: '6 MIN',
+    tags: ['DevOps', 'Process'],
+    image: BIMG.ship,
+    content: [
+      {
+        h: 'The last 10% is 40% of the work',
+        body: [
+          'Environment variables, DNS, SSL, backups, error monitoring, uptime alerts — none of it is glamorous, all of it is the difference between a demo and a product. I quote for it explicitly now, and clients thank me later.',
+        ],
+      },
+      {
+        h: 'My pre-launch checklist',
+        body: [
+          'Staging environment that mirrors production. Database backup verified by an actual restore. Error tracking wired before the first real user. A rollback path tested, not assumed. Meta tags, OG images and a 404 page that does not embarrass anyone.',
+          'Then the boring part: I watch the logs for 48 hours after launch. Most production fires start as a warning nobody read.',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'typescript-pragmatism',
+    num: '06',
+    title: 'TypeScript for People Who Ship',
+    excerpt: 'Strict mode everywhere except where it slows the build down. Where types pay rent and where they are just ceremony.',
+    date: 'DEC 2025',
+    readTime: '5 MIN',
+    tags: ['TypeScript'],
+    image: BIMG.react,
+    content: [
+      {
+        h: 'Types are documentation that cannot lie',
+        body: [
+          'The best argument for TypeScript is six months later, when you return to a codebase and the compiler explains the data shapes faster than any README. On API boundaries and shared utilities, strict types pay rent daily.',
+        ],
+      },
+      {
+        h: 'Where I relax',
+        body: [
+          'Prototype components, one-off scripts, generative art sketches — chasing perfect generics there is ceremony, not engineering. I would rather ship a well-tested any than a beautiful type for code that gets deleted next sprint.',
+          'The rule: the longer code will live and the more hands will touch it, the stricter it gets. Type rigor should follow code lifetime.',
+        ],
+      },
+    ],
+  },
+];
