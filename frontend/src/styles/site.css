@@ -928,6 +928,41 @@ html.x-cursor-down .x-cursor-ring {
   margin-top: clamp(48px, 9vh, 120px);
 }
 
+/* Tech chips (project detail) */
+.x-chip {
+  display: inline-block;
+  font-family: var(--x-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 4px 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.05);
+  white-space: nowrap;
+}
+.x-sec-light .x-chip,
+.x-projmeta .x-chip {
+  border-color: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.04);
+}
+.x-projtags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.x-projtag {
+  font-family: var(--x-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  color: #4a4a46;
+}
+
 @media (max-width: 640px) {
   .x-ready-head { max-width: 12ch; }
   .x-scrollprog { height: 2px; }

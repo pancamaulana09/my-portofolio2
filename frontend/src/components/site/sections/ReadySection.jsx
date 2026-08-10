@@ -11,13 +11,13 @@ export default function ReadySection() {
   const ref = useRef(null);
   useSectionStatus(ref, statusWords.noticed);
 
-  const items = ['MOTION', 'DESIGN', 'CODE', 'GENERATIVE', 'IDENTITY', 'MOTION', 'DESIGN', 'CODE', 'GENERATIVE', 'IDENTITY'];
+  const items = ['WEB DEV', 'UI / UX', 'ENTERPRISE', 'IOT', '3D WEB', 'REACT', 'NEXT.JS', 'WEB DEV', 'UI / UX', 'ENTERPRISE', 'IOT', '3D WEB', 'REACT', 'NEXT.JS'];
 
   return (
     <section ref={ref} className="x-ready" data-testid="ready-section">
       <div className="x-ready-inner">
         <Words
-          text="So — ready to make something loud?"
+          text="So — ready to build something that performs?"
           className="x-ready-head"
           once
         />

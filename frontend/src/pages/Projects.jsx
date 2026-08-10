@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { ExternalLink } from 'lucide-react';
 import DecodeText from '../components/site/DecodeText';
 import GiantFooter from '../components/site/sections/GiantFooter';
 import { projects, projectsIntro, statusWords } from '../mock';
@@ -38,11 +39,29 @@ export default function Projects() {
               >
                 <div className={`lg:col-span-5 ${i % 2 === 1 ? 'lg:order-2 lg:col-start-8' : ''}`}>
                   <div className="x-label text-[#8f8f8a] mb-2">({p.num})</div>
-                  <DecodeText text={p.name} as="h2" className="xh-big mb-6" speed={40} />
+                  <DecodeText text={p.name} as="h2" className="xh-big mb-4" speed={40} />
+                  <div className="x-projtags">
+                    {p.fields.map((f) => (
+                      <span key={f} className="x-projtag">{f}</span>
+                    ))}
+                  </div>
                   <p className="x-body text-[#4a4a46] max-w-[42ch] mb-6">{p.description}</p>
-                  <Link to={`/projects/${p.id}`} className="x-label x-underline" data-testid={`projects-link-${p.id}`}>
-                    View project details
-                  </Link>
+                  <div className="flex items-center gap-6 flex-wrap">
+                    <Link to={`/projects/${p.id}`} className="x-label x-underline" data-testid={`projects-link-${p.id}`}>
+                      View project details
+                    </Link>
+                    {p.link && (
+                      <a
+                        href={p.link}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="x-label x-underline inline-flex items-center gap-1.5"
+                        data-testid={`projects-live-${p.id}`}
+                      >
+                        <ExternalLink size={12} /> Live site
+                      </a>
+                    )}
+                  </div>
                 </div>
                 <div className={`lg:col-span-7 ${i % 2 === 1 ? 'lg:order-1 lg:col-start-1' : ''}`}>
                   <Link to={`/projects/${p.id}`} className="x-projcard" aria-label={p.name}>

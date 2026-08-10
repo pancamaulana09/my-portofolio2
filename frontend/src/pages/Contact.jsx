@@ -51,20 +51,20 @@ export default function Contact() {
 
               <div className="grid grid-cols-2 gap-8 max-w-md">
                 <div>
-                  <div className="x-label text-[#8f8f8a] mb-2">Amsterdam (NL)</div>
-                  <div className="x-label">Studio</div>
-                  <div className="x-label">By appointment</div>
+                  <div className="x-label text-[#8f8f8a] mb-2">Based in</div>
+                  <div className="x-label">Surabaya (ID)</div>
+                  <div className="x-label">Available worldwide</div>
                 </div>
                 <div>
-                  <div className="x-label text-[#8f8f8a] mb-2">Athens (GR)</div>
-                  <div className="x-label">Studio</div>
-                  <div className="x-label">By appointment</div>
+                  <div className="x-label text-[#8f8f8a] mb-2">Work</div>
+                  <div className="x-label">Freelance</div>
+                  <div className="x-label">Remote / On-site</div>
                 </div>
               </div>
 
               <div className="mt-14 flex gap-6">
-                <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" className="x-label x-underline">Instagram</a>
-                <a href="https://www.behance.net/" target="_blank" rel="noreferrer" className="x-label x-underline">Behance</a>
+                <a href="https://github.com/pancamaulana09" target="_blank" rel="noreferrer" className="x-label x-underline">GitHub</a>
+                <a href={site.emailHref} className="x-label x-underline">Email</a>
               </div>
             </div>
 

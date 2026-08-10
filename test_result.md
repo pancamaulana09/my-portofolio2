@@ -348,3 +348,25 @@ agent_communication:
         to /projects & /contact works (hit-test: no overlay blocks clicks). No
         console errors. Files: App.js, pages/Home.jsx, styles/site.css,
         components/site/fx/*, sections/ReadySection.jsx.
+    - agent: "main"
+      message: >
+        REAL DATA (Panca Maulana): Replaced all placeholder "2xA STUDIO" content
+        in src/mock.js with Panca Maulana's real portfolio (profile, statement,
+        7 projects with category/fields/technologies/features/role/description/
+        detail + live link, capabilities, languages, expertise, page titles,
+        SBY/BER clocks, GitHub footer). Repurposed sections for a solo dev:
+        Team -> Languages (Bahasa Indonesia/English/German with CEFR), Achievements
+        -> Capabilities (7-row tech-stack table). Enhanced ProjectDetail (live-site
+        link, Technologies chips, Key Features grid, Role) and Projects list
+        (category tags + Live site link). Added glyphs P,N,C,M,L to DotMatrix and
+        set Home brandmark + GiantFooter wordmark to "PANCA MAULANA". Sourced 7
+        project images via vision_expert (6 web/app + 1 hydroponic). Verified via
+        screenshots: Projects (7 items, 1 live link), ProjectDetail Cipta Karya
+        (5 tech, 7 features, live href ok), About (Languages 3 rows + Capabilities
+        7 rows), dot-matrix renders PANCA MAULANA. No console errors; lint clean.
+        PLACEHOLDERS to confirm with user: contact email (hello@pancamaulana.dev),
+        live URLs for Stryke/UNUSA/Gowes/Lexicult/Worvia, LinkedIn/Instagram.
+        Files: mock.js, pages/ProjectDetail.jsx, pages/Projects.jsx, pages/Contact.jsx,
+        pages/Home.jsx, sections/Team.jsx, sections/Achievements.jsx,
+        sections/GiantFooter.jsx, sections/ReadySection.jsx, components/site/DotMatrix.jsx,
+        styles/site.css.

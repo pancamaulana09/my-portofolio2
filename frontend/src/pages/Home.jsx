@@ -22,7 +22,7 @@ function BrandMark() {
   return (
     <section ref={ref} className="x-sec-dark py-36 px-4 overflow-hidden" data-testid="brandmark-section">
       <div className="max-w-[1440px] mx-auto flex justify-center text-[#d6d6d0]">
-        <DotMatrix text="2xA STUDIO" testId="hero-dotmatrix" />
+        <DotMatrix text="PANCA MAULANA" testId="hero-dotmatrix" />
       </div>
     </section>
   );

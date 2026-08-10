@@ -1,15 +1,44 @@
-// ======================= MOCK DATA — 2xA STUDIO CLONE =======================
-// All content below is frontend mock data. Long-form prose is original writing
-// in the spirit of the reference site; facts (names, awards) mirror the source.
+// ======================= PORTFOLIO DATA — PANCA MAULANA =======================
+// Real portfolio content for Panca Maulana (Web Developer, Surabaya, Indonesia).
+// Export names are kept stable so all existing sections keep working; a few
+// sections were repurposed (Team -> Languages, Achievements -> Capabilities).
+// NOTE: items marked TODO(link)/PLACEHOLDER need the real URL/handle from Panca.
+
+// ---- Imagery (curated, project-representative) ----
+const IMG = {
+  hydro: 'https://images.unsplash.com/photo-1682629088818-1ec55d0cf45b?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600',
+  greenhouse: 'https://images.unsplash.com/photo-1759509295194-e85b92b24e15?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600',
+  analytics: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600',
+  laptopDash: 'https://images.unsplash.com/photo-1608222351212-18fe0ec7b13b?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600',
+  dataViz: 'https://images.unsplash.com/photo-1686061594225-3e92c0cd51b0?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600',
+  webBuilder: 'https://images.unsplash.com/photo-1634084462412-b54873c0a56d?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600',
+  uiSystem: 'https://images.unsplash.com/photo-1558655146-d09347e92766?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600',
+  designUi: 'https://images.unsplash.com/photo-1602576666092-bf6447a729fc?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600',
+};
+
+// ---- Personal profile ----
+export const profile = {
+  name: 'Panca Maulana',
+  role: 'Web Developer',
+  location: 'Surabaya, Jawa Timur, Indonesia',
+  experience: '4+ years',
+  workType: 'Freelance / Professional Web Developer',
+  bio: [
+    'Panca Maulana is a Web Developer with more than 4 years of experience designing, developing and deploying modern digital products and websites.',
+    'His work covers the complete development process — concept, UI/UX design, development, testing, optimization and deployment — with a focus on experiences that are responsive, user-friendly, performance-oriented, scalable and consistent with the client\u2019s brand.',
+    'He is continuously growing across web development, UI/UX, enterprise applications, IoT, 3D and foreign languages.',
+  ],
+};
 
 export const site = {
-  name: '2xA STUDIO',
-  logo: '2xA STUDIO',
-  email: 'HELLO@2XA.STUDIO',
-  emailHref: 'mailto:hello@2xa.studio',
+  name: 'PANCA MAULANA',
+  logo: 'PANCA MAULANA',
+  // PLACEHOLDER — replace with Panca\u2019s real contact email.
+  email: 'HELLO@PANCAMAULANA.DEV',
+  emailHref: 'mailto:hello@pancamaulana.dev',
   clocks: [
-    { label: 'ATH(GR)', tz: 'Europe/Athens' },
-    { label: 'AMS(NL)', tz: 'Europe/Amsterdam' },
+    { label: 'SBY(ID)', tz: 'Asia/Jakarta' },
+    { label: 'BER(DE)', tz: 'Europe/Berlin' },
   ],
   nav: [
     { label: 'ABOUT', path: '/about' },
@@ -17,240 +46,291 @@ export const site = {
     { label: 'CONTACT', path: '/contact' },
   ],
   footerLinks: [
-    { label: 'INSTAGRAM', href: 'https://www.instagram.com/', external: true },
-    { label: 'BEHANCE', href: 'https://www.behance.net/', external: true },
-    { label: 'HELLO@2XA.STUDIO', href: 'mailto:hello@2xa.studio', external: true },
+    { label: 'GITHUB', href: 'https://github.com/pancamaulana09', external: true },
+    { label: 'HELLO@PANCAMAULANA.DEV', href: 'mailto:hello@pancamaulana.dev', external: true },
     { label: 'PRIVACY', href: '/privacy', external: false },
   ],
 };
 
 export const statusWords = {
-  thinking: ['ON', 'COMPUTATION', 'AS', 'A', 'WAY', 'OF', 'THINKING'],
-  made: ['MADE', 'WITH', 'CARE', 'AND', 'A', 'LOT', 'OF', 'CODE'],
-  practice: ['PRACTICE', 'SHAPED', 'BY', 'CODE', 'DATA', 'AND', 'FORM'],
-  team: ['TEAM', 'MEMBERS', '(', 'IN', 'NO', 'PARTICULAR', 'ORDER', ')'],
-  noticed: ['GOOD', 'WORK', 'TENDS', 'TO', 'GET', 'NOTICED'],
-  studio: ['CODE', 'DRIVEN', 'DESIGN', 'STUDIO', 'BETWEEN', 'AMSTERDAM', '&', 'ATHENS'],
-  contact: ['SAY', 'HELLO', '—', 'WE', 'READ', 'EVERYTHING'],
+  thinking: ['BUILDING', 'THE', 'WEB', 'ONE', 'SYSTEM', 'AT', 'A', 'TIME'],
+  made: ['DESIGNED', 'BUILT', 'TESTED', 'OPTIMIZED', 'AND', 'DEPLOYED'],
+  practice: ['FROM', 'CONCEPT', 'TO', 'DEPLOYMENT', '—', 'END', 'TO', 'END'],
+  team: ['THREE', 'LANGUAGES', 'AND', 'STILL', 'COUNTING'],
+  noticed: ['WORK', 'THAT', 'PERFORMS', 'AND', 'SCALES'],
+  studio: ['WEB', 'DEVELOPER', '·', 'SURABAYA', '·', 'INDONESIA', '·', '4+', 'YEARS'],
+  contact: ['SAY', 'HELLO', '—', 'LET\u2019S', 'BUILD', 'SOMETHING'],
   showcase: ['SELECTED', 'WORK', '(', 'IN', 'MOTION', ')'],
-  archive: ['FULL', 'ARCHIVE', '—', 'EVERY', 'SYSTEM', 'WE', 'SHIPPED'],
-  output: ['OUTPUT', 'PRINTED', 'STRAIGHT', 'FROM', 'THE', 'MACHINE'],
-  signal: ['RAW', 'INPUT', '—', 'REPROCESSED', 'IN', 'REAL', 'TIME'],
+  archive: ['FULL', 'ARCHIVE', '—', 'SEVEN', 'SHIPPED', 'PROJECTS'],
+  output: ['GENERATIVE', 'OUTPUT', 'FROM', 'THE', 'MACHINE'],
+  signal: ['RESPONSIVE', '·', 'USER', 'FIRST', '·', 'PERFORMANCE'],
 };
 
-// Giant statement (Foundations-style intro in the studio voice — original writing)
+// Giant statement (studio-style intro, first person, Panca\u2019s voice)
 export const statement = {
-  label: 'Studio',
-  text: 'We design systems that design. Code is the raw material here — every identity, website and image starts as a process, gets released into motion, and is observed until it holds.',
+  label: 'Profile',
+  text: 'I build modern digital products end-to-end — from concept and UI/UX to development, optimization and deployment. The goal never changes: fast, responsive, user-friendly experiences shaped around real business needs.',
 };
 
-// Full Archive index — projects plus internal generative studies
+// Full Archive index (all 7 projects)
 export const archive = [
-  { name: 'ABR Festival', path: '/projects/abr-festival', image: 'https://images.unsplash.com/photo-1619229725920-ac8b63b0631a?q=80&w=800&auto=format&fit=crop' },
-  { name: 'Buna Tetu', path: '/projects/buna-tetu', image: 'https://images.unsplash.com/photo-1563050860-87d45eaaeabb?q=80&w=800&auto=format&fit=crop' },
-  { name: 'Miao World', path: '/projects/miao-world', image: 'https://images.pexels.com/photos/13129483/pexels-photo-13129483.jpeg?auto=compress&cs=tinysrgb&w=800' },
-  { name: 'Climate Journalism', path: '/projects/climate-journalism', image: 'https://images.unsplash.com/photo-1583521214690-73421a1829a9?q=80&w=800&auto=format&fit=crop' },
-  { name: 'Who Owns The Media', path: '/projects/who-owns-the-media', image: 'https://images.unsplash.com/photo-1644088379091-d574269d422f?q=80&w=800&auto=format&fit=crop' },
-  { name: 'Dither Studies', path: '/projects', image: 'https://images.unsplash.com/photo-1634368998864-8984df61cdda?q=80&w=800&auto=format&fit=crop' },
-  { name: 'Signal Decay', path: '/projects', image: 'https://images.unsplash.com/photo-1635438004811-54b5864e57eb?q=80&w=800&auto=format&fit=crop' },
-  { name: 'Frequency Atlas', path: '/projects', image: 'https://images.unsplash.com/photo-1722970651121-6a3ea5666ff7?q=80&w=800&auto=format&fit=crop' },
+  { name: 'IoT Hydroponic System', path: '/projects/iot-hydroponic', image: IMG.hydro },
+  { name: 'PT Cipta Karya Pertiwi Trans', path: '/projects/cipta-karya-pertiwi-trans', image: IMG.webBuilder },
+  { name: 'Stryke', path: '/projects/stryke', image: IMG.designUi },
+  { name: 'UNUSA Smart TRA', path: '/projects/unusa-smart-tra', image: IMG.analytics },
+  { name: 'Gowes / Fenomena Bike', path: '/projects/gowes-cyclequest', image: IMG.dataViz },
+  { name: 'Lexicult', path: '/projects/lexicult', image: IMG.uiSystem },
+  { name: 'Worvia / Suricon ERP', path: '/projects/worvia-erp', image: IMG.laptopDash },
 ];
 
-// Giant parallax words over the manifesto section
+// Giant parallax words over the manifesto/about section
 export const overlayWords = [
-  'Code-', 'Driven', 'Design', 'Studio', 'Between', 'Amsterdam', '&', 'Athens',
+  'Web', 'Developer', '·', 'Surabaya', '·', 'Indonesia', '4+', 'Years',
 ];
 
-// Original writing — manifesto in 4 columns (visual structure mirrors source)
+// About — 4-column write-up (approach & focus, original writing)
 export const manifesto = {
   columns: [
     [
-      'Software now sits underneath almost everything: how we see, how we work, how we speak to each other. Computation stopped being a finishing tool a long time ago. It is the ground the work stands on, and we treat it that way from the first sketch.',
-      'We are not interested in dressing technology up, or in replaying old ideas about form. We want to work with the present tense: algorithmic, shifting, unfinished. Complexity is not something to hide. We take it apart, write it down, and let it show.',
-      'Systems interest us more than objects. A finished artifact is just one frame of a longer process, so we design the process, its behaviors, tendencies and changes over time, and let the artifacts fall out of it.',
+      'I work across the whole build: understanding the problem, shaping the interface, writing the code, testing it, tuning performance and shipping it live.',
+      'Design and engineering are not separate steps for me. A product is decided by how it feels in the hand and how fast it responds — so I hold both from the first sketch to the final deploy.',
+      'Four-plus years of freelance and professional work have made one thing clear: the best interface is the one that gets out of the user\u2019s way.',
     ],
     [
-      'The method is the medium. We spend our time setting up systems that run, not polishing a single frozen output. What gets authored is a chain of operations and relationships. The final state is whatever the system happens to be doing when you look.',
-      'Every state grows out of the one before it and feeds the one after. Change is not decoration added at the end; it is a property the system was born with.',
-      'Outputs are provisional by design. Each one is a temporary arrangement of inputs, parameters and time. We compare them, we keep some, and we never call any of them definitive.',
+      'Every project starts from a real business requirement, not a template. What is this for, who uses it, and what does success look like?',
+      'From there the work stays responsive, user-friendly and consistent with the brand — and scalable enough to grow after launch.',
+      'Performance is a feature. Optimization, clean structure and sensible architecture are part of the brief, never an afterthought.',
     ],
     [
-      'Logic is the skeleton. It decides how parts relate, how decisions get made, and how complexity stays organized instead of just piling up.',
-      'Rules make a system inspectable. When conditions are written clearly, the frictions and contradictions inside a system stop being invisible. That is where the interesting material lives.',
-      'Rules on their own express nothing. Their job is to hold a frame steady so behavior can emerge inside it. Ambiguity should come from running the thing, never from writing it vaguely. Constraint is what makes exploration precise instead of endless.',
+      'The stack is modern and pragmatic: React, Next.js and TypeScript on the front, Node.js with PostgreSQL, Supabase or Firebase behind it, wired together with REST APIs.',
+      'I build enterprise systems too — ERP, HRM, payroll, attendance and reporting — where reliability and clarity matter more than novelty.',
+      'And I like the edges of the web: IoT with ESP32 and Home Assistant, and 3D experiences with Three.js, React Three Fiber and Blender.',
     ],
     [
-      'Input is raw material. It is what wakes a system up and decides how it answers to a changing world.',
-      'Data is never neutral. It gets measured, observed and selected by someone, inside a technical and cultural situation. We treat that history as part of the material.',
-      'We pull input from real conditions: physical space, social systems, human activity, machine processes. How that input is sampled, its resolution, its framing, decides what the system can say and what stays out of reach.',
+      'I learn constantly — new tools, new patterns, and new languages. Bahasa Indonesia natively, English at an advanced level, and German on the way (reading around B2, speaking around A2).',
+      'That curiosity feeds the work: I enjoy talking to people from different backgrounds and turning what they need into something that runs.',
+      'Ideas become products here — from concept through implementation, owned end to end.',
     ],
   ],
 };
 
-// Home intro block (original writing)
+// Home / About intro block
 export const studioIntro = [
-  '2xA is a code-driven design studio working between Amsterdam and Athens, focused on digital products, brand identities, UX/UI and custom web development.',
-  'We sit at the crossing point of design and computation: websites, platforms and interactive systems where the code itself is part of the creative act. Strategy, design systems and generative methods combine into work that is clear, scalable and alive.',
-  'Form follows process. Every project is a set of conditions released into motion — code tracing the edge between structure and surprise, between what was specified and what emerged.',
+  'Panca Maulana is a Web Developer based in Surabaya, Indonesia, with 4+ years building modern websites, web applications and digital products.',
+  'The work spans the full process — UI/UX design, frontend and backend development, API integration, optimization and deployment — with a focus on responsive, user-friendly, performance-oriented experiences.',
+  'Beyond the browser: enterprise systems (ERP, HRM, payroll), IoT automation, and interactive 3D on the web.',
 ];
 
 export const projectsIntro = [
-  'The projects here come from different fields and different briefs. What they share is a method.',
-  'Computation is used not to automate decisions but to build the conditions under which form, behavior and meaning can appear. Identity systems, digital platforms, motion work — each built from its own logic, shaped by its own constraints.',
-  'Nothing is fixed in advance. A project defines its parameters, sets its processes running, and what follows is observed, adjusted, refined. The work is done not when a form is chosen, but when the system holds.',
+  'Seven projects across very different fields — IoT, corporate web, e-commerce, safety, community, education and enterprise.',
+  'What they share is a method: understand the requirement, design a clear interface, build it well, then optimize and ship.',
+  'Each one was carried from concept to a working product — several of them live in the real world.',
 ];
 
 export const projects = [
   {
-    id: 'abr-festival',
+    id: 'iot-hydroponic',
     num: '01',
-    name: 'ABR Festival',
-    year: '2026',
-    client: 'ABR Festival, Lefkosia',
-    fields: ['Identity', 'Motion', 'Type Design'],
-    theme: '#481010',
-    themeText: '#e8d9c8',
-    image: 'https://images.unsplash.com/photo-1619229725920-ac8b63b0631a?q=80&w=1600&auto=format&fit=crop',
-    description:
-      'A modular, motion-first identity built on the tension between Low Tech and High Life. A custom pixel typeface meets the cold clarity of Helvetica, and the whole visual language is generated in code — flexible enough to stretch from print to screen while holding a multicultural festival together as one coherent system.',
-    detail: [
-      'The brief asked for an identity that could carry many sounds, rhythms and audiences at once without falling apart. Instead of a fixed logo, we wrote a system: a pixel display face colliding with a neutral grotesque, recombined by scripts into posters, tickets, socials and stage visuals.',
-      'Every application is an output of the same code base. Parameters shift per venue, per act, per day — the identity is never twice the same, and never anything other than itself.',
-    ],
-  },
-  {
-    id: 'buna-tetu',
-    num: '02',
-    name: 'Buna Tetu',
-    year: '2025',
-    client: 'Jazz Cafe Buna Tetu',
-    fields: ['Generative Print', 'Poster Series', 'Sound Analysis'],
-    theme: '#101014',
-    themeText: '#dededa',
-    image: 'https://images.unsplash.com/photo-1563050860-87d45eaaeabb?q=80&w=1600&auto=format&fit=crop',
-    description:
-      'A poster series for a jazz cafe, grown from the music itself. Each piece is generated in Processing from the sound analysis of one specific track — frequency bands mapped to form, color and density. Mid-century jazz print re-processed through algorithmic means: no two posters alike, each one a fixed frame of something that was always moving.',
-    detail: [
-      'We fed each track through a spectral analysis pipeline, splitting it into frequency bands that drive the composition: lows push mass and weight, mids carve structure, highs scatter detail across the surface.',
-      'The typographic register borrows from the history of jazz sleeves — structured grids against fluid gesture — but every curve on the page is a data point from the recording. The poster is the song, sampled once.',
-    ],
-  },
-  {
-    id: 'miao-world',
-    num: '03',
-    name: 'Miao World',
+    name: 'IoT Hydroponic System',
     year: '2024',
-    client: 'MiAO — Gaming Studio',
-    fields: ['Digital Platform', 'Web Design', 'Development'],
-    theme: '#0b0b0b',
-    themeText: '#dededa',
-    image: 'https://images.pexels.com/photos/13129483/pexels-photo-13129483.jpeg?auto=compress&cs=tinysrgb&w=1600',
+    client: 'IoT · Automation · Smart Agriculture',
+    fields: ['IoT', 'Automation', 'Smart Agriculture'],
+    theme: '#0e1410',
+    themeText: '#d7e9d9',
+    image: IMG.hydro,
+    link: null,
+    role: 'End-to-end developer — system concept, hardware integration, programming, automation, monitoring and implementation.',
+    technologies: ['Arduino Mega', 'ESP32', 'ESPHome', 'Home Assistant', 'BME280', 'DS18B20', 'HX711', 'Peristaltic Pump', 'Solenoid'],
+    features: ['Environmental monitoring', 'Sensor monitoring', 'Water system automation', 'Pump control', 'Hydroponic automation', 'Home Assistant integration', 'Real-time monitoring'],
     description:
-      'A digital platform for a Chinese gaming studio working between voxel worlds and artificial intelligence. The visual language speaks 80s computing — pixel type, monochrome palette, glitch as texture rather than error. Less a designed surface, more a system with its own history: something that existed before you arrived.',
+      'An automated hydroponic system combining microcontrollers, sensors, pumps and home-automation technology into one self-running grow setup.',
     detail: [
-      'The site behaves like an old machine that learned new tricks: terminal pacing, coarse bitmaps, interactions that feel excavated rather than invented.',
-      'Under the retro grammar runs a modern stack — the glitches are deliberate, deterministic and art-directed down to the scanline.',
+      'Sensors track the growing environment — temperature, humidity, water and load — and feed a control layer that runs pumps and solenoids automatically, with everything surfaced in real time through Home Assistant.',
+      'Built end-to-end: I owned the concept, the hardware integration, the firmware and automation logic, and the monitoring — turning a manual routine into a hands-off IoT system.',
     ],
   },
   {
-    id: 'climate-journalism',
+    id: 'cipta-karya-pertiwi-trans',
+    num: '02',
+    name: 'PT Cipta Karya Pertiwi Trans',
+    year: '2021',
+    client: 'Corporate Website · Company Profile · Waste Transport',
+    fields: ['Corporate Website', 'Company Profile', 'Waste Transport'],
+    theme: '#10131a',
+    themeText: '#dde3ea',
+    image: IMG.webBuilder,
+    link: 'https://ciptakaryapertiwitrans.vercel.app',
+    role: 'Web Developer / UI/UX — website experience, responsive implementation, corporate presentation and customer communication features.',
+    technologies: ['Next.js', 'React', 'Responsive Web Design', 'Chatbot', 'WhatsApp Integration'],
+    features: ['Company profile & overview', 'Service information', 'Professional corporate presentation', 'Responsive interface', 'Customer chatbot', 'WhatsApp integration', 'Contact information'],
+    description:
+      'A professional company-profile website for PT Cipta Karya Pertiwi Trans, a licensed transporter of B3 and Non-B3 waste (established 2021).',
+    detail: [
+      'The site presents the company clearly — who they are, the services they offer and how to reach them — with a clean, responsive corporate layout that works across devices.',
+      'A built-in customer chatbot and WhatsApp integration make first contact effortless, turning a static profile into a working lead channel.',
+    ],
+  },
+  {
+    id: 'stryke',
+    num: '03',
+    name: 'Stryke',
+    year: '2024',
+    client: 'E-commerce · Fashion · Streetwear',
+    fields: ['E-commerce', 'Fashion', 'Streetwear'],
+    theme: '#140f12',
+    themeText: '#ecdfe0',
+    image: IMG.designUi,
+    link: null,
+    role: 'Web Developer / UI/UX — premium fashion UI, product discovery and a conversion-oriented shopping experience.',
+    technologies: ['React', 'Responsive Web Design', 'UI/UX', 'E-commerce UX'],
+    features: ['Product catalogue & details', 'Shopping cart', 'Wishlist', 'User authentication', 'Product search', 'Shipping & tax information', 'Responsive interface'],
+    description:
+      'A premium streetwear e-commerce concept focused on a modern, engaging online shopping experience.',
+    detail: [
+      'The interface is built around product discovery — a clean catalogue, rich product detail, search, wishlist and cart — all tuned for a premium fashion feel.',
+      'The flow is conversion-oriented and fully responsive, from browsing to checkout information, so the experience holds up on any screen.',
+    ],
+  },
+  {
+    id: 'unusa-smart-tra',
     num: '04',
-    name: 'Climate Journalism',
-    year: '2023',
-    client: 'N-Ost Network',
-    fields: ['Platform', 'Archive', 'Data'],
-    theme: '#12140f',
-    themeText: '#dededa',
-    image: 'https://images.unsplash.com/photo-1583521214690-73421a1829a9?q=80&w=1600&auto=format&fit=crop',
+    name: 'UNUSA Smart TRA',
+    year: '2024',
+    client: 'K3 / Safety · Risk Assessment · Enterprise App',
+    fields: ['K3 / Safety', 'Risk Assessment', 'Enterprise App'],
+    theme: '#0d1116',
+    themeText: '#dfe6ec',
+    image: IMG.analytics,
+    link: null,
+    role: 'Web Developer / UI/UX — turning a manual occupational-safety workflow into a structured digital process.',
+    technologies: ['React', 'Dashboard Design', 'Data Visualization', 'REST API'],
+    features: ['Task risk assessment', '5×5 risk matrix', 'Risk evaluation', 'Risk heatmap', 'Hierarchy of controls', 'Risk management', 'Digital reporting & export'],
     description:
-      'An archive platform for climate reporting across Central Asia. Studies, articles and conference material that once lived on scattered servers and private machines, organized into one searchable, durable public resource — so the data stops getting lost and starts getting used.',
+      'A digital occupational health & safety (K3) risk-assessment application that helps users evaluate and manage workplace risks.',
     detail: [
-      'The structure is the design: a taxonomy tuned with the editorial team, fast full-text search, and an interface that stays out of the way of the material.',
-      'Built to be maintained by journalists, not developers — everything editable, everything exportable, nothing locked in.',
+      'The core is a 5×5 risk matrix with evaluation, a visual heatmap and the hierarchy of controls — the whole assessment expressed as a clear, guided digital flow.',
+      'It replaces a traditionally manual, paper-based routine with a structured system, complete with digital reporting and report export.',
     ],
   },
   {
-    id: 'who-owns-the-media',
+    id: 'gowes-cyclequest',
     num: '05',
-    name: 'Who Owns The Media',
+    name: 'Gowes / Fenomena Bike',
     year: '2025',
-    client: 'Investigative Consortium',
-    fields: ['Interactive Platform', 'Data Visualization'],
-    theme: '#0d0d12',
-    themeText: '#dededa',
-    image: 'https://images.unsplash.com/photo-1644088379091-d574269d422f?q=80&w=1600&auto=format&fit=crop',
+    client: 'Community · Social Platform · Fitness',
+    fields: ['Community', 'Social Platform', 'Fitness'],
+    theme: '#0f1410',
+    themeText: '#dbe9dd',
+    image: IMG.dataViz,
+    link: null,
+    role: 'Web Developer / Product Developer / UI/UX — community engagement, map-based experiences and gamified activity tracking.',
+    technologies: ['React', 'MapLibre', 'REST API', 'Real-time Tracking'],
+    features: ['Cycling community', 'Interactive maps (MapLibre)', 'Route exploration', 'Cycling clubs', 'Challenges', 'Activity & real-time tracking', 'Gamification'],
     description:
-      'An interactive platform mapping the entanglement of media ownership in Greece. A dense web of relationships, interests and influence turned into a navigable system — built as a research tool for journalists and a map for everyone else.',
+      'A digital cycling community platform — social interaction, route discovery, mapping, clubs, challenges and activity tracking. Live as CycleQuest: Explore. Ride. Level Up.',
     detail: [
-      'Ownership graphs render as living networks: drag a node and its dependencies follow, filter by sector and watch the clusters re-form.',
-      'Every edge in the graph is sourced. The visualization is an index into documents, not a substitute for them.',
+      'Riders discover routes on interactive MapLibre maps, join clubs, take on challenges and track activities in real time — all in one place.',
+      'Gamification (challenges and progress) turns individual rides into a shared community experience, built as a product from the ground up.',
+    ],
+  },
+  {
+    id: 'lexicult',
+    num: '06',
+    name: 'Lexicult',
+    year: '2025',
+    client: 'EdTech · Language Learning · German',
+    fields: ['EdTech', 'Language Learning', 'German'],
+    theme: '#12101a',
+    themeText: '#e2ddef',
+    image: IMG.uiSystem,
+    link: null,
+    role: 'Product Developer / UI/UX / Full-Stack Developer — a structured, engaging environment for German learners.',
+    technologies: ['React', 'Node.js', 'PostgreSQL', 'REST API'],
+    features: ['German learning (CEFR A1–C2)', 'Vocabulary & grammar', 'Reading, quizzes & flashcards', 'Learning progress', 'XP, streaks & leaderboards', 'Certificates', 'Gamification'],
+    description:
+      'A German language-learning platform built around the CEFR A1–C2 structure. Live as Lexicult — Master German.',
+    detail: [
+      'Lessons move through vocabulary, grammar, reading, quizzes and flashcards, mapped to the CEFR A1–C2 ladder so learners always know where they stand.',
+      'XP, streaks, leaderboards and certificates keep motivation high — a full-stack product designed to make daily language practice stick.',
+    ],
+  },
+  {
+    id: 'worvia-erp',
+    num: '07',
+    name: 'Worvia / Suricon ERP',
+    year: '2025',
+    client: 'ERP · HRM · Payroll · Enterprise App',
+    fields: ['ERP', 'HRM', 'Payroll'],
+    theme: '#101314',
+    themeText: '#dee6e8',
+    image: IMG.laptopDash,
+    link: null,
+    role: 'Full-Stack Developer / UI/UX — digitizing internal employee and HR processes in one centralized enterprise application.',
+    technologies: ['Flutter', 'Node.js', 'PostgreSQL', 'Firebase'],
+    features: ['Human Resource Management', 'Employee management', 'Attendance & GPS attendance', 'Leave management', 'Payroll & salary slips', 'Career history & records', 'PDF export & reporting'],
+    description:
+      'An enterprise HR & ERP platform managing employee operations, attendance, payroll and career information. Live as Worvia — HR Attendance & Payroll.',
+    detail: [
+      'The platform centralizes HR: employee records, GPS-based attendance, leave, payroll and salary slips, and career history — with PDF export and reporting on top.',
+      'It replaces scattered manual processes with a single, reliable system, built full-stack from data model to interface.',
     ],
   },
 ];
 
+// About — "Primary Areas" cards
 export const expertise = [
   {
-    title: 'Branding',
-    text: "We dig out what a brand actually is — its pulse, its character — and turn that into a clear platform every piece of creative work can stand on.",
-  },
-  {
-    title: 'Brand Strategy',
-    text: "We work out what your brand stands for, who it is talking to, and how it earns its place in the room.",
-  },
-  {
-    title: 'Creative Direction',
-    text: 'We hold the vision across every touchpoint, keeping the work sharp and consistent from first sketch to final pixel.',
-  },
-  {
-    title: 'Motion',
-    text: 'We bring movement, transformation and character to your stories — for social, for the web, or for a physical space.',
-  },
-  {
-    title: 'Generative Systems',
-    text: 'We build living visual systems driven by code, where every output is unique but the language stays consistent.',
-  },
-  {
-    title: 'Web Design',
-    text: 'We design code-first digital spaces, turning a website into a medium for creativity, interaction and expression.',
-  },
-  {
     title: 'Web Development',
-    text: 'We turn our designs into functional, lightweight and forward-thinking code.',
+    text: 'Modern websites, responsive interfaces, web applications, REST APIs and deployment — React, Next.js and TypeScript.',
+  },
+  {
+    title: 'UI / UX Design',
+    text: 'User-centered interfaces, responsive design, landing pages, dashboards, e-commerce and enterprise screens. Design systems and brand consistency.',
+  },
+  {
+    title: 'Enterprise Systems',
+    text: 'ERP, HRM, payroll, attendance, risk management and reporting — business applications built to be reliable and scalable.',
+  },
+  {
+    title: 'IoT',
+    text: 'ESP32, Arduino, ESPHome and Home Assistant — sensors, automation, monitoring and smart systems that run on their own.',
+  },
+  {
+    title: 'Creative Technology',
+    text: '3D web experiences with Three.js and React Three Fiber, motion design and interactive experiences, modeled in Blender.',
+  },
+  {
+    title: 'Product Development',
+    text: 'Turning ideas and business requirements into functional digital products — from concept through implementation, owned end to end.',
   },
 ];
 
-export const team = [
-  { name: 'Eveleen', role: 'Co-Founder', craft: 'Web Developer / Project Manager', city: 'Amsterdam' },
-  { name: 'Yannick', role: 'Co-Founder', craft: 'Web Developer / Creative Coder', city: 'Amsterdam' },
-  { name: 'Maria', role: 'Co-Founder', craft: 'Graphic Designer / Type Designer', city: 'Athens' },
-  { name: 'Dimitris', role: 'Co-Founder', craft: 'Graphic Designer / Art Director', city: 'Athens' },
+// Repurposed: Capabilities / tech-stack index (rendered in the old Achievements table)
+export const capabilities = [
+  { discipline: 'Web Development', stack: 'React · Next.js · TypeScript · TanStack', focus: 'Frontend & backend, REST APIs, deployment' },
+  { discipline: 'UI / UX Design', stack: 'Figma · Canva · Design Systems', focus: 'Responsive UI, dashboards, landing pages' },
+  { discipline: 'Backend & Database', stack: 'Node.js · PostgreSQL · Supabase · Firebase', focus: 'Auth, DB architecture, API integration' },
+  { discipline: 'Enterprise Apps', stack: 'ERP · HRM · Payroll · Attendance', focus: 'Business management & reporting systems' },
+  { discipline: 'IoT', stack: 'ESP32 · Arduino · ESPHome · Home Assistant', focus: 'Sensors, automation, monitoring' },
+  { discipline: '3D & Creative', stack: 'Blender · Three.js · React Three Fiber', focus: '3D web, motion & interaction' },
+  { discipline: 'Soft Skills', stack: 'Communication · Ownership · Problem solving', focus: 'Teamwork, attention to detail, adaptability' },
 ];
 
-export const teamImage =
-  'https://images.unsplash.com/photo-1722970651121-6a3ea5666ff7?q=80&w=1600&auto=format&fit=crop';
-
-export const awards = [
-  { project: 'ABR Festival', org: 'CSS Design Awards', award: 'Special Kudos Award', year: '2026' },
-  { project: 'Who Owns The Media', org: 'CSS Design Awards', award: 'Special Kudos Award', year: '2025' },
-  { project: 'We Are Solomon', org: 'EBGE Awards', award: 'Award / Blogs & Portals', year: '2024' },
-  { project: 'MiAO', org: 'Awwwards', award: 'Honorable Mention', year: '2024' },
-  { project: '', org: 'CSS Design Awards', award: 'Special Kudos Award', year: '2024' },
-  { project: 'Climate Journalism', org: 'Awwwards', award: 'Honorable Mention', year: '2023' },
-  { project: 'Yannick Gregoire', org: 'Awwwards', award: 'Site Of The Day', year: '2022' },
-  { project: '', org: 'CSS Design Awards', award: 'Site Of The Day', year: '2022' },
-  { project: '', org: 'CSS Winner', award: 'Site Of The Day', year: '2022' },
-  { project: '', org: 'EBGE Awards', award: 'Merit / Portfolios & Promotional Websites', year: '2022' },
+// Repurposed: Languages (rendered in the old Team/blue section)
+export const languages = [
+  { name: 'Bahasa Indonesia', level: 'Native', notes: 'Native fluency', cefr: '—' },
+  { name: 'English', level: 'Advanced', notes: 'Advanced reading & listening; speaking daily', cefr: 'C1' },
+  { name: 'German', level: 'Learning', notes: 'Reading ~B2 · Speaking ~A2, improving', cefr: 'B2 / A2' },
 ];
 
-export const genGridImages = [
-  'https://images.unsplash.com/photo-1634368998864-8984df61cdda?q=80&w=1200&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1635438004811-54b5864e57eb?q=80&w=1200&auto=format&fit=crop',
-];
+export const teamImage = IMG.greenhouse;
+
+export const genGridImages = [IMG.dataViz, IMG.greenhouse];
 
 export const pageTitles = {
-  '/': ['The', 'Studio'],
-  '/about': ['The', 'Method'],
-  '/projects': ['The', 'Projects'],
-  '/contact': ['The', 'Contact'],
+  '/': ['Web', 'Developer'],
+  '/about': ['The', 'Profile'],
+  '/projects': ['The', 'Work'],
+  '/contact': ['Say', 'Hello'],
   '/privacy': ['The', 'Fine', 'Print'],
 };

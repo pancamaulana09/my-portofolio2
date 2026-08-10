@@ -10,7 +10,7 @@ export default function GiantFooter({ tone = 'light' }) {
       data-testid="giant-footer"
     >
       <div className="max-w-[1440px] mx-auto flex justify-center">
-        <DotMatrix text="2xA STUDIO" testId="footer-dotmatrix" />
+        <DotMatrix text="PANCA MAULANA" testId="footer-dotmatrix" />
       </div>
     </section>
   );
