@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter, HTTPException
+from fastapi import FastAPI, APIRouter, HTTPException, Request
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -10,7 +10,7 @@ from pathlib import Path
 from pydantic import BaseModel, Field, ConfigDict, EmailStr
 from typing import List
 import uuid
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
 
 ROOT_DIR = Path(__file__).parent
@@ -47,6 +47,8 @@ class ContactMessage(BaseModel):
     name: str = Field(min_length=1, max_length=120)
     email: EmailStr
     message: str = Field(min_length=1, max_length=5000)
+    website: str = ""
+    elapsed_ms: int = 0
 
 def _contact_html(m: ContactMessage) -> str:
     return f"""
@@ -58,9 +60,22 @@ def _contact_html(m: ContactMessage) -> str:
     """
 
 @api_router.post("/contact")
-async def submit_contact(m: ContactMessage):
-    doc = m.model_dump()
+async def submit_contact(m: ContactMessage, request: Request):
+    ip = request.headers.get('x-forwarded-for', request.client.host or 'unknown').split(',')[0].strip()
+
+    # Honeypot filled or submitted inhumanly fast -> silently drop (bots see success)
+    if m.website or m.elapsed_ms < 2500:
+        logger.warning(f"Spam dropped from {ip} (honeypot={bool(m.website)}, elapsed={m.elapsed_ms}ms)")
+        return {"status": "sent"}
+
+    hour_ago = (datetime.now(timezone.utc) - timedelta(hours=1)).isoformat()
+    recent = await db.contact_messages.count_documents({"ip": ip, "created_at": {"$gte": hour_ago}})
+    if recent >= 5:
+        raise HTTPException(status_code=429, detail="Too many messages. Please try again later.")
+
+    doc = m.model_dump(exclude={"website", "elapsed_ms"})
     doc['id'] = str(uuid.uuid4())
+    doc['ip'] = ip
     doc['created_at'] = datetime.now(timezone.utc).isoformat()
     await db.contact_messages.insert_one(doc)
 

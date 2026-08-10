@@ -29,6 +29,11 @@ Clone repo publik https://github.com/pancamaulana09/my-portofolio2.git, jalankan
   - Email placeholder di `mock.js` diganti ke pancamaulana2003@gmail.com
   - Tested: curl 200 + email_id ✅, validasi 422 ✅, e2e UI submit → toast MESSAGE SENT + form reset ✅
   - Catatan: Resend testing mode hanya bisa kirim ke email akun sendiri; untuk kirim dari domain sendiri perlu verifikasi domain di resend.com/domains
+- 2026-06-10 (sesi ini): **Anti-spam form kontak (3 lapis)**:
+  - Honeypot: field `website` tersembunyi (off-screen) di `Contact.jsx`; jika terisi → backend balas sukses palsu, tidak kirim email
+  - Time-check: `elapsed_ms` (waktu render→submit) dikirim frontend; < 2500ms → drop diam-diam
+  - Rate limit: maks 5 pesan/jam per IP (x-forwarded-for, dihitung dari `contact_messages` di Mongo, field `ip` disimpan) → 429 + toast "SLOW DOWN"
+  - Tested: honeypot ✅ (fake 200, log "Spam dropped"), fast-submit ✅, rate limit 429 ✅ (via injeksi 5 doc + cleanup), pengunjung asli tetap sukses dari UI ✅
 
 ## Backlog
 - P2: Update link sosial asli lain di `mock.js` (GitHub sudah asli; email SUDAH diganti ke pancamaulana2003@gmail.com)

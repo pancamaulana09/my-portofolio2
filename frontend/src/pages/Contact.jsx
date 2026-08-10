@@ -10,7 +10,9 @@ export default function Contact() {
   useSectionStatus(secRef, statusWords.contact);
   const { toast } = useToast();
   const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const [hp, setHp] = useState('');
   const [sending, setSending] = useState(false);
+  const mountedAt = useRef(Date.now());
 
   const submit = async (e) => {
     e.preventDefault();
@@ -23,8 +25,12 @@ export default function Contact() {
       const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, website: hp, elapsed_ms: Date.now() - mountedAt.current }),
       });
+      if (res.status === 429) {
+        toast({ title: 'SLOW DOWN', description: 'Too many messages in a short time. Please try again in an hour.' });
+        return;
+      }
       if (!res.ok) throw new Error('send failed');
       setForm({ name: '', email: '', message: '' });
       toast({ title: 'MESSAGE SENT', description: 'Thanks — your message is on its way. I usually reply within a day.' });
@@ -72,6 +78,19 @@ export default function Contact() {
             </div>
 
             <form className="lg:col-span-5 lg:col-start-8 space-y-5" onSubmit={submit} data-testid="contact-form">
+              <div style={{ position: 'absolute', left: '-9999px', height: 0, overflow: 'hidden' }} aria-hidden="true">
+                <label htmlFor="c-website">Website</label>
+                <input
+                  id="c-website"
+                  name="website"
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={hp}
+                  onChange={(e) => setHp(e.target.value)}
+                  data-testid="contact-honeypot"
+                />
+              </div>
               <div>
                 <label className="x-label text-[#8f8f8a] block mb-2" htmlFor="c-name">Name</label>
                 <input
