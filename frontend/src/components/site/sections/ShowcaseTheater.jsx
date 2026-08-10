@@ -32,12 +32,18 @@ export default function ShowcaseTheater() {
   const activeRef = useRef(active);
   useEffect(() => {
     activeRef.current = active;
-    // keep active thumb in view on mobile strips
+    // Keep active thumb centered inside the filmstrip WITHOUT scrolling the page.
+    // Using scrollIntoView causes the viewport to jump back to this section
+    // when the user is reading another section and the gallery auto-advances.
     const strip = stripRef.current;
     const el = strip?.children?.[active];
-    if (el && strip.scrollWidth > strip.clientWidth) {
-      el.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-    }
+    if (!strip || !el) return;
+    if (strip.scrollWidth <= strip.clientWidth) return;
+    const target = el.offsetLeft - (strip.clientWidth - el.clientWidth) / 2;
+    const max = strip.scrollWidth - strip.clientWidth;
+    const left = Math.max(0, Math.min(max, target));
+    // Only smooth-scroll the strip itself; no page scrolling.
+    strip.scrollTo({ left, behavior: 'smooth' });
   }, [active]);
 
   const p = projects[active];
