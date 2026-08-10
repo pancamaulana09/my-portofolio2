@@ -34,6 +34,12 @@ Clone repo publik https://github.com/pancamaulana09/my-portofolio2.git, jalankan
   - Time-check: `elapsed_ms` (waktu render→submit) dikirim frontend; < 2500ms → drop diam-diam
   - Rate limit: maks 5 pesan/jam per IP (x-forwarded-for, dihitung dari `contact_messages` di Mongo, field `ip` disimpan) → 429 + toast "SLOW DOWN"
   - Tested: honeypot ✅ (fake 200, log "Spam dropped"), fast-submit ✅, rate limit 429 ✅ (via injeksi 5 doc + cleanup), pengunjung asli tetap sukses dari UI ✅
+- 2026-06-10 (sesi ini): **Mosaic Scroll Reveal section** (`MosaicReveal.jsx`, setelah Hero di Home):
+  - Reveal aditif sesuai spek user: 0% kosong hitam → tile bertambah bertahap (kurva piecewise 4→8→20→30→48→65→80→96 tile) → 100% gambar utuh mulus, dua arah (maju/mundur)
+  - Gambar: `/app/frontend/public/assets/reveal-ride.jpg` (upload user, POV sepeda 2:3, 98KB) — nyambung dengan project Gowes/Fenomena Bike
+  - Teknik: sticky 380vh + useScroll framer-motion; grid tile background-position (8×12 desktop, 6×9 mobile); update DOM langsung via useMotionValueEvent (tanpa React re-render, performa terbaik); tile scatter acak deterministik (mulberry32 seed), blur/rotasi/offset menyusut ke 0; swap ke <img> solid di p≥0.94 agar bebas seam; prefers-reduced-motion → gambar statis
+  - Copy DNA: "Pieces become products." + counter Assembly % lime, kelas `x-mosaic-*` di site.css
+  - Tested via DOM metrics & screenshot: 0%→0 tile, 10%→3, 30%→20, 50%→48/96, 70%→76, 100%→96 + full image; reverse scroll ✅; mobile 54 tile ✅
 
 ## Backlog
 - P2: Update link sosial asli lain di `mock.js` (GitHub sudah asli; email SUDAH diganti ke pancamaulana2003@gmail.com)
