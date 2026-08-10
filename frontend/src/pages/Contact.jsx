@@ -5,8 +5,6 @@ import { site, statusWords } from '../mock';
 import { useSectionStatus } from '../lib/statusBus';
 import { useToast } from '../hooks/use-toast';
 
-const LS_KEY = 'xa_contact_messages';
-
 export default function Contact() {
   const secRef = useRef(null);
   useSectionStatus(secRef, statusWords.contact);
@@ -14,22 +12,27 @@ export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' });
   const [sending, setSending] = useState(false);
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
     if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
       toast({ title: 'INCOMPLETE', description: 'Name, email and message are all required.' });
       return;
     }
     setSending(true);
-    // Frontend mock — stored locally until the backend exists.
-    setTimeout(() => {
-      const prev = JSON.parse(localStorage.getItem(LS_KEY) || '[]');
-      prev.push({ ...form, at: new Date().toISOString() });
-      localStorage.setItem(LS_KEY, JSON.stringify(prev));
+    try {
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error('send failed');
       setForm({ name: '', email: '', message: '' });
+      toast({ title: 'MESSAGE SENT', description: 'Thanks — your message is on its way. I usually reply within a day.' });
+    } catch {
+      toast({ title: 'TRANSMISSION FAILED', description: 'Could not send right now. Please try again or email me directly.' });
+    } finally {
       setSending(false);
-      toast({ title: 'MESSAGE LOGGED', description: 'Saved locally — backend wiring comes next.' });
-    }, 600);
+    }
   };
 
   return (

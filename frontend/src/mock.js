@@ -33,9 +33,8 @@ export const profile = {
 export const site = {
   name: 'PANCA MAULANA',
   logo: 'PANCA MAULANA',
-  // PLACEHOLDER — replace with Panca\u2019s real contact email.
-  email: 'HELLO@PANCAMAULANA.DEV',
-  emailHref: 'mailto:hello@pancamaulana.dev',
+  email: 'PANCAMAULANA2003@GMAIL.COM',
+  emailHref: 'mailto:pancamaulana2003@gmail.com',
   clocks: [
     { label: 'SBY(ID)', tz: 'Asia/Jakarta' },
     { label: 'BER(DE)', tz: 'Europe/Berlin' },
@@ -48,7 +47,7 @@ export const site = {
   ],
   footerLinks: [
     { label: 'GITHUB', href: 'https://github.com/pancamaulana09', external: true },
-    { label: 'HELLO@PANCAMAULANA.DEV', href: 'mailto:hello@pancamaulana.dev', external: true },
+    { label: 'PANCAMAULANA2003@GMAIL.COM', href: 'mailto:pancamaulana2003@gmail.com', external: true },
     { label: 'PRIVACY', href: '/privacy', external: false },
   ],
 };

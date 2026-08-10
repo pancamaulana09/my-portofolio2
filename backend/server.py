@@ -1,11 +1,13 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI, APIRouter, HTTPException
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
+import asyncio
 import logging
+import resend
 from pathlib import Path
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, Field, ConfigDict, EmailStr
 from typing import List
 import uuid
 from datetime import datetime, timezone
@@ -13,6 +15,10 @@ from datetime import datetime, timezone
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
+
+resend.api_key = os.environ['RESEND_API_KEY']
+SENDER_EMAIL = os.environ['SENDER_EMAIL']
+CONTACT_RECIPIENT = os.environ['CONTACT_RECIPIENT']
 
 # MongoDB connection
 mongo_url = os.environ['MONGO_URL']
@@ -36,6 +42,41 @@ class StatusCheck(BaseModel):
 
 class StatusCheckCreate(BaseModel):
     client_name: str
+
+class ContactMessage(BaseModel):
+    name: str = Field(min_length=1, max_length=120)
+    email: EmailStr
+    message: str = Field(min_length=1, max_length=5000)
+
+def _contact_html(m: ContactMessage) -> str:
+    return f"""
+    <table style="width:100%;max-width:600px;font-family:Courier,monospace;border:1px solid #ddd;border-collapse:collapse">
+      <tr><td style="background:#0a0a09;color:#c6ff2e;padding:14px 18px;font-weight:bold">NEW PORTFOLIO MESSAGE</td></tr>
+      <tr><td style="padding:14px 18px"><b>From:</b> {m.name} &lt;{m.email}&gt;</td></tr>
+      <tr><td style="padding:0 18px 14px;white-space:pre-wrap">{m.message}</td></tr>
+    </table>
+    """
+
+@api_router.post("/contact")
+async def submit_contact(m: ContactMessage):
+    doc = m.model_dump()
+    doc['id'] = str(uuid.uuid4())
+    doc['created_at'] = datetime.now(timezone.utc).isoformat()
+    await db.contact_messages.insert_one(doc)
+
+    params = {
+        "from": SENDER_EMAIL,
+        "to": [CONTACT_RECIPIENT],
+        "reply_to": m.email,
+        "subject": f"Portfolio contact — {m.name}",
+        "html": _contact_html(m),
+    }
+    try:
+        email = await asyncio.to_thread(resend.Emails.send, params)
+    except Exception as e:
+        logger.error(f"Resend send failed: {e}")
+        raise HTTPException(status_code=502, detail="Message saved but email delivery failed")
+    return {"status": "sent", "email_id": email.get("id")}
 
 # Add your routes to the router instead of directly to app
 @api_router.get("/")
