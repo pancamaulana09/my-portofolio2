@@ -329,3 +329,22 @@ agent_communication:
         Files: frontend/src/components/site/Character3D.jsx (new),
         frontend/src/components/site/Hero.jsx, frontend/src/styles/site.css,
         public/models/character.glb, public/images/crowd.webp.
+    - agent: "main"
+      message: >
+        MOTION SYSTEM (video-reference fusion): Injected a reference-inspired
+        motion layer into the existing dark/glitch aesthetic (kept the identity).
+        New global FX (src/components/site/fx/): SmoothScroll (Lenis 1.3, wheel
+        only, native touch, disabled for reduced-motion, jump-to-top on route
+        change), CustomCursor (dot + spring-follow ring, mix-blend-difference,
+        grows on interactive hover; desktop/fine-pointer only), ScrollProgress
+        (neon-lime top bar via framer useScroll+useSpring), and reusable Motion.jsx
+        (Reveal, Words word-by-word reveal, Magnetic buttons, infinite Marquee).
+        App.js wraps routes in AnimatePresence for page-transition fade/slide
+        (coexists with existing PageFX curtain). Added ReadySection on Home: big
+        word-reveal CTA + magnetic lime/ghost buttons (->/projects, ->/contact) +
+        neon marquee band. Added --x-lime accent. All responsive + reduced-motion
+        aware + transform/opacity-only. Verified: hero 3D+crowd intact, smooth
+        scroll works, cursor+progress render, Ready CTA + marquee render, routing
+        to /projects & /contact works (hit-test: no overlay blocks clicks). No
+        console errors. Files: App.js, pages/Home.jsx, styles/site.css,
+        components/site/fx/*, sections/ReadySection.jsx.

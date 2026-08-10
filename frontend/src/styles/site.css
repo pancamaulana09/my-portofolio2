@@ -9,6 +9,7 @@
   --x-text-dark: #161615;
   --x-gray: #8f8f8a;
   --x-blue: #1400ff;
+  --x-lime: #c6ff2e;
   --x-red: #481010;
   --x-mono: 'Courier Prime', 'Courier New', monospace;
   --x-grot: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -732,4 +733,202 @@ a, button, [role='button'], label, input, select {
   .x-theater-foot { bottom: 52px; }
   .x-pfield-foot { bottom: 52px; }
   .x-statement { max-width: 100%; }
+}
+
+/* =====================================================================
+   MOTION SYSTEM — cursor, scroll progress, marquee, word reveal,
+   magnetic, and the "Ready" CTA. Layered on top of the studio aesthetic.
+   ===================================================================== */
+
+/* Scroll progress bar */
+.x-scrollprog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--x-lime);
+  transform-origin: 0% 50%;
+  transform: scaleX(0);
+  z-index: 300;
+  pointer-events: none;
+  box-shadow: 0 0 12px rgba(198, 255, 46, 0.6);
+}
+
+/* Custom cursor — hide native cursor when active */
+html.x-has-cursor,
+html.x-has-cursor * {
+  cursor: none !important;
+}
+.x-cursor-ring,
+.x-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  pointer-events: none;
+  mix-blend-mode: difference;
+  will-change: transform;
+}
+.x-cursor-ring {
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  border: 1.5px solid #fff;
+  border-radius: 50%;
+  transition: width 0.22s ease, height 0.22s ease, margin 0.22s ease, background 0.22s ease, opacity 0.22s ease;
+}
+.x-cursor-dot {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  background: #fff;
+  border-radius: 50%;
+}
+html.x-cursor-hover .x-cursor-ring {
+  width: 56px;
+  height: 56px;
+  margin: -28px 0 0 -28px;
+  background: rgba(255, 255, 255, 0.12);
+}
+html.x-cursor-down .x-cursor-ring {
+  width: 26px;
+  height: 26px;
+  margin: -13px 0 0 -13px;
+}
+
+/* Magnetic wrapper */
+.x-magnetic {
+  display: inline-flex;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+/* Word reveal */
+.x-word-wrap {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+.x-word {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* Infinite marquee */
+.x-marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+.x-marquee-track {
+  display: flex;
+  width: max-content;
+  animation-name: x-marquee-scroll;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+.x-marquee:hover .x-marquee-track {
+  animation-play-state: paused;
+}
+.x-marquee-group {
+  display: flex;
+  flex-shrink: 0;
+}
+@keyframes x-marquee-scroll {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+.x-marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  font-family: var(--x-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: clamp(20px, 4.4vw, 56px);
+  line-height: 1;
+  padding: 0 1.6rem;
+  color: var(--x-text-light);
+}
+.x-marquee-star {
+  color: var(--x-lime);
+  font-size: 0.55em;
+  transform: translateY(-0.1em);
+}
+
+/* Ready CTA section */
+.x-ready {
+  position: relative;
+  background: var(--x-black);
+  color: var(--x-text-light);
+  padding: clamp(80px, 14vh, 180px) 0 clamp(30px, 6vh, 64px);
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.x-ready-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  text-align: center;
+}
+.x-ready-head {
+  font-family: var(--x-grot);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 0.98;
+  font-size: clamp(38px, 8.5vw, 132px);
+  text-transform: none;
+  margin: 0 auto;
+  max-width: 16ch;
+}
+.x-ready-actions {
+  margin-top: clamp(28px, 5vh, 56px);
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.x-ready-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--x-mono);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 14px 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.x-ready-btn--lime {
+  background: var(--x-lime);
+  color: #0a0a09;
+  border-color: var(--x-lime);
+}
+.x-ready-btn--lime:hover {
+  filter: brightness(1.08);
+}
+.x-ready-btn--ghost {
+  color: #fff;
+  background: transparent;
+}
+.x-ready-btn--ghost:hover {
+  background: #fff;
+  color: #0a0a09;
+  border-color: #fff;
+}
+.x-ready-marquee {
+  margin-top: clamp(48px, 9vh, 120px);
+}
+
+@media (max-width: 640px) {
+  .x-ready-head { max-width: 12ch; }
+  .x-scrollprog { height: 2px; }
 }
