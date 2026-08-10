@@ -232,6 +232,13 @@ export const projects = [
       'Riders discover routes on interactive MapLibre maps, join clubs, take on challenges and track activities in real time — all in one place.',
       'Gamification (challenges and progress) turns individual rides into a shared community experience, built as a product from the ground up.',
     ],
+    media: {
+      video: '/assets/fenomena-ad.mp4',
+      videoPoster: '/assets/fenomena-ad-poster.jpg',
+      poster: '/assets/fenomena-poster.jpg',
+      posterAlt: 'Fenomena Bike — campaign poster',
+      accent: '#ff3b30',
+    },
   },
   {
     id: 'lexicult',
@@ -274,6 +281,13 @@ export const projects = [
       'The platform centralizes HR: employee records, GPS-based attendance, leave, payroll and salary slips, and career history — with PDF export and reporting on top.',
       'It replaces scattered manual processes with a single, reliable system, built full-stack from data model to interface.',
     ],
+    media: {
+      video: '/assets/suricon-ad.mp4',
+      videoPoster: '/assets/suricon-ad-poster.jpg',
+      poster: '/assets/suricon-poster.jpg',
+      posterAlt: 'Suricon ERP — campaign poster',
+      accent: '#f5b52e',
+    },
   },
 ];
 

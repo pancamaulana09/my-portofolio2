@@ -800,6 +800,133 @@ a, button, [role='button'], label, input, select {
   .x-mosaic-frame { height: min(56vh, 520px); margin-right: 0; }
 }
 
+/* ---------- project campaign media (video ad + poster) ---------- */
+.x-pmedia {
+  margin-bottom: 96px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+.x-pmedia-player {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #000;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+.x-pmedia-player video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.x-pmedia-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 4px 9px;
+  background: rgba(0, 0, 0, 0.72);
+  color: var(--pm-accent, #fff);
+  border: 1px solid var(--pm-accent, rgba(255, 255, 255, 0.3));
+  pointer-events: none;
+}
+.x-pmedia-controls {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.x-pmedia-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: rgba(0, 0, 0, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #fff;
+  transition: background 0.12s steps(2), color 0.12s steps(2), border-color 0.12s steps(2);
+}
+.x-pmedia-btn:hover {
+  background: var(--pm-accent, #fff);
+  border-color: var(--pm-accent, #fff);
+  color: #000;
+}
+.x-pmedia-state {
+  padding: 4px 9px;
+  background: rgba(0, 0, 0, 0.72);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 10px;
+}
+.x-pmedia-posterbtn {
+  position: relative;
+  display: block;
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  overflow: hidden;
+  background: #000;
+  transition: border-color 0.2s ease;
+}
+.x-pmedia-posterbtn:hover { border-color: var(--pm-accent, #fff); }
+.x-pmedia-posterbtn img {
+  width: 100%;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.x-pmedia-posterbtn:hover img { transform: scale(1.02); }
+.x-pmedia-zoom {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  background: rgba(0, 0, 0, 0.72);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  font-size: 10px;
+}
+.x-pmedia-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(5, 5, 4, 0.92);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4vh 4vw;
+  cursor: zoom-out;
+}
+.x-pmedia-lightbox img {
+  max-height: 92vh;
+  max-width: 92vw;
+  object-fit: contain;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: default;
+}
+.x-pmedia-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #fff;
+  z-index: 2;
+  transition: background 0.12s steps(2), color 0.12s steps(2);
+}
+.x-pmedia-close:hover { background: #fff; color: #000; }
+@media (max-width: 640px) {
+  .x-pmedia { margin-bottom: 64px; }
+}
+
 /* gen art tiles */
 .x-tile {
   display: block;

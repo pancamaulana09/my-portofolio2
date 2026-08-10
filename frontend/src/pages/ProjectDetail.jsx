@@ -3,6 +3,7 @@ import { useParams, Link, Navigate } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, ExternalLink } from 'lucide-react';
 import DecodeText from '../components/site/DecodeText';
 import GenArt from '../components/site/GenArt';
+import { ProjectMedia } from '../components/site/ProjectMedia';
 import { projects, statusWords } from '../mock';
 import { useSectionStatus } from '../lib/statusBus';
 
@@ -101,6 +102,8 @@ export default function ProjectDetail() {
             )}
           </div>
         </div>
+
+        {p.media && <ProjectMedia media={p.media} />}
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-24">
           <GenArt type="waves" seed={idx * 3 + 2} ratio="1 / 1" />

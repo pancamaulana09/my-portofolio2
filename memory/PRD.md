@@ -40,6 +40,11 @@ Clone repo publik https://github.com/pancamaulana09/my-portofolio2.git, jalankan
   - Teknik: sticky 380vh + useScroll framer-motion; grid tile background-position (8×12 desktop, 6×9 mobile); update DOM langsung via useMotionValueEvent (tanpa React re-render, performa terbaik); tile scatter acak deterministik (mulberry32 seed), blur/rotasi/offset menyusut ke 0; swap ke <img> solid di p≥0.94 agar bebas seam; prefers-reduced-motion → gambar statis
   - Copy DNA: "Pieces become products." + counter Assembly % lime, kelas `x-mosaic-*` di site.css
   - Tested via DOM metrics & screenshot: 0%→0 tile, 10%→3, 30%→20, 50%→48/96, 70%→76, 100%→96 + full image; reverse scroll ✅; mobile 54 tile ✅
+- 2026-06-10 (sesi ini): **Campaign Media (video ads + poster) di Project Detail**:
+  - Aset user di `/app/frontend/public/assets/`: fenomena-ad.mp4 + suricon-ad.mp4 (6.5MB, 7 detik, 720p), poster kampanye (JPEG q85), poster frame video untuk instant paint
+  - `mock.js`: field `media` {video, videoPoster, poster, posterAlt, accent} pada project `gowes-cyclequest` (aksen merah #ff3b30) & `worvia-erp` (aksen emas #f5b52e)
+  - `ProjectMedia.jsx` (components/site): section "( Campaign ) — Film & poster" di ProjectDetail; video 16:9 autoplay-muted via IntersectionObserver (play ≥50% terlihat, pause di luar), kontrol custom play/pause + mute (set DOM property langsung — atribut `muted` React tidak sync, sudah difix), preload=metadata + poster attr; poster tall dengan lightbox portal (Escape/klik untuk tutup, body scroll lock); reveal framer-motion; badge PROMO FILM warna aksen per project
+  - Tested: autoplay ✅, unmute ✅, pause/resume ✅, auto-pause out-of-view ✅, lightbox open/close ✅, mobile stack ✅, kedua halaman project ✅
 
 ## Backlog
 - P2: Update link sosial asli lain di `mock.js` (GitHub sudah asli; email SUDAH diganti ke pancamaulana2003@gmail.com)
