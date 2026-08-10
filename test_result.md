@@ -370,3 +370,25 @@ agent_communication:
         pages/Home.jsx, sections/Team.jsx, sections/Achievements.jsx,
         sections/GiantFooter.jsx, sections/ReadySection.jsx, components/site/DotMatrix.jsx,
         styles/site.css.
+    - agent: "main"
+      message: >
+        HORIZONTAL SHOWCASE (cok2.webm reference — Awwwards "Normal is Boring"):
+        Added a pinned horizontal-scroll project gallery in the studio dark/mono/
+        lime DNA. New src/components/site/sections/HorizontalShowcase.jsx uses
+        framer-motion useScroll on a tall outer section (height = scrollRange +
+        100vh) with a sticky 100vh stage and a track translated on X via
+        useTransform([0,1] -> [0,-scrollRange]); scrollRange measured from track
+        scrollWidth via ResizeObserver. Lead intro panel + 7 project panels (big
+        outlined index, image with scale reveal, name, category tags, description,
+        View project / Live site links, year badge) + closing "All projects" panel.
+        Lime progress dot + fill line + live "NN / 07" counter (useMotionValueEvent).
+        Per-panel entrance reveals via whileInView (IntersectionObserver works with
+        the X transform). Responsive/robust: on <=900px OR coarse pointer OR
+        reduced-motion it renders a native CSS scroll-snap swipe carousel fallback
+        instead of the pinned effect. Replaced the vertical SelectedProjects on Home
+        with HorizontalShowcase. Verified: translateX 0 -> -4417 -> -8834 across
+        scroll, counter 01 -> 04, panel 03 "Stryke" renders with index/tags/links,
+        progress dot + counter visible. No console errors; lint clean. Files:
+        sections/HorizontalShowcase.jsx (new), pages/Home.jsx, styles/site.css.
+        NOTE: user mentioned "claude fable 5 model" — no such selectable model;
+        model is platform-set, not per-message. Feature built to award standard.

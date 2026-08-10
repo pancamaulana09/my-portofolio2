@@ -4,7 +4,7 @@ import DotMatrix from '../components/site/DotMatrix';
 import DecodeText from '../components/site/DecodeText';
 import GenArt from '../components/site/GenArt';
 import Manifesto from '../components/site/sections/Manifesto';
-import SelectedProjects from '../components/site/sections/SelectedProjects';
+import HorizontalShowcase from '../components/site/sections/HorizontalShowcase';
 import Achievements from '../components/site/sections/Achievements';
 import GiantFooter from '../components/site/sections/GiantFooter';
 import ShowcaseTheater from '../components/site/sections/ShowcaseTheater';
@@ -76,7 +76,7 @@ export default function Home() {
       <GenerativeGrid />
       <Manifesto showReadMore />
       <ScaleMedia />
-      <SelectedProjects limit={3} />
+      <HorizontalShowcase />
       <ArchiveIndex />
       <PosterField />
       <Achievements tone="dark" />
