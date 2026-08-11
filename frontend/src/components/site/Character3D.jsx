@@ -1,9 +1,8 @@
 /* eslint-disable react/no-unknown-property */
-import React, { Suspense, useRef, useState, useCallback } from 'react';
+import React, { Suspense, useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import {
   useGLTF,
-  OrbitControls,
   ContactShadows,
   Center,
   Bounds,
@@ -26,15 +25,14 @@ function Loader() {
     <Html center>
       <div
         style={{
-          fontFamily: 'var(--x-mono, monospace)',
-          fontSize: 11,
-          fontWeight: 700,
-          letterSpacing: '0.12em',
+          fontFamily: 'var(--x-pixel, monospace)',
+          fontSize: 18,
+          letterSpacing: '0.08em',
           textTransform: 'uppercase',
           color: '#fff',
-          background: 'rgba(8,8,8,0.55)',
-          border: '1px solid rgba(255,255,255,0.35)',
-          padding: '7px 12px',
+          background: 'rgba(0,0,0,0.35)',
+          border: '1px solid rgba(255,255,255,0.45)',
+          padding: '6px 12px',
           whiteSpace: 'nowrap',
         }}
       >
@@ -44,17 +42,18 @@ function Loader() {
   );
 }
 
-// The GLTF model. Auto-rotates right -> left, but pauses while the user
-// is actively dragging so the OrbitControls interaction feels natural.
-function CharacterModel({ draggingRef, autoRotateSpeed = 0.35 }) {
+// GLTF model. Auto-rotates left → right (positive Y = counter-clockwise from
+// above = front face drifts left-to-right). Manual drag adds an offset that
+// eases back to the auto-rotation over time.
+function CharacterModel({ dragOffsetRef, autoRotateSpeed = 0.35 }) {
   const group = useRef();
   const { scene } = useGLTF(MODEL_URL);
+  const autoRot = useRef(0);
 
   useFrame((_, delta) => {
-    if (group.current && !draggingRef.current) {
-      // Negative Y delta = clockwise when viewed from above = right-to-left front face.
-      group.current.rotation.y -= autoRotateSpeed * delta;
-    }
+    if (!group.current) return;
+    autoRot.current += autoRotateSpeed * delta;
+    group.current.rotation.y = autoRot.current + dragOffsetRef.current;
   });
 
   return (
@@ -67,80 +66,144 @@ function CharacterModel({ draggingRef, autoRotateSpeed = 0.35 }) {
 }
 
 export default function Character3D() {
-  const draggingRef = useRef(false);
+  const dragOffsetRef = useRef(0);
+  const canvasWrapRef = useRef(null);
   const [failed, setFailed] = useState(false);
 
-  const onStart = useCallback(() => {
-    draggingRef.current = true;
-  }, []);
-  const onEnd = useCallback(() => {
-    draggingRef.current = false;
+  // Custom pointer handling — only capture horizontal drags. Vertical
+  // gestures are ignored so the page can scroll on mobile. Uses raw
+  // pointer events instead of OrbitControls so we can decide per-event.
+  useEffect(() => {
+    const el = canvasWrapRef.current;
+    if (!el) return;
+
+    let active = false;
+    let decided = false; // whether we've decided horizontal vs vertical
+    let startX = 0;
+    let startY = 0;
+    let lastX = 0;
+    let pointerId = null;
+
+    const onDown = (e) => {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      active = true;
+      decided = e.pointerType === 'mouse'; // desktop: always drag
+      startX = e.clientX;
+      startY = e.clientY;
+      lastX = e.clientX;
+      pointerId = e.pointerId;
+    };
+
+    const onMove = (e) => {
+      if (!active) return;
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+
+      // Touch/pen: wait until the user commits to a direction. If
+      // vertical wins, we release the pointer so the page can scroll.
+      if (!decided) {
+        if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return;
+        if (Math.abs(dy) > Math.abs(dx)) {
+          active = false;
+          return;
+        }
+        decided = true;
+        try { el.setPointerCapture(pointerId); } catch {}
+      }
+
+      const stepX = e.clientX - lastX;
+      lastX = e.clientX;
+      // Positive stepX (drag right) = rotate right on Y axis.
+      const width = el.clientWidth || 1;
+      dragOffsetRef.current += (stepX / width) * Math.PI * 1.4;
+      e.preventDefault();
+    };
+
+    const onUp = () => {
+      active = false;
+      decided = false;
+      pointerId = null;
+    };
+
+    el.addEventListener('pointerdown', onDown, { passive: true });
+    // move must be non-passive so we can preventDefault when we own the drag
+    el.addEventListener('pointermove', onMove, { passive: false });
+    el.addEventListener('pointerup', onUp, { passive: true });
+    el.addEventListener('pointercancel', onUp, { passive: true });
+    el.addEventListener('pointerleave', onUp, { passive: true });
+
+    return () => {
+      el.removeEventListener('pointerdown', onDown);
+      el.removeEventListener('pointermove', onMove);
+      el.removeEventListener('pointerup', onUp);
+      el.removeEventListener('pointercancel', onUp);
+      el.removeEventListener('pointerleave', onUp);
+    };
   }, []);
 
   if (failed) return null;
 
   return (
-    <Canvas
-      className="x-char-canvas"
-      shadows
-      dpr={[1, 1.8]}
-      gl={{
-        antialias: true,
-        alpha: true,
-        powerPreference: 'high-performance',
-        preserveDrawingBuffer: false,
-      }}
-      camera={{ position: [0, 0.4, 6], fov: 40, near: 0.1, far: 100 }}
-      onCreated={({ gl }) => {
-        gl.domElement.addEventListener('webglcontextlost', () => setFailed(true), { once: true });
-      }}
-      data-testid="hero-3d-canvas"
+    <div
+      ref={canvasWrapRef}
+      style={{ width: '100%', height: '100%' }}
+      data-testid="hero-3d-wrap"
     >
-      {/* Studio lighting — self-contained, no external HDR fetch dependency. */}
-      <ambientLight intensity={0.6} />
-      <directionalLight
-        position={[4, 6, 5]}
-        intensity={2.2}
-        castShadow
-        shadow-mapSize-width={1024}
-        shadow-mapSize-height={1024}
-        shadow-bias={-0.0001}
-      />
-      <directionalLight position={[-5, 3, -4]} intensity={0.8} color="#8ab4ff" />
-      <pointLight position={[0, -3, 3]} intensity={0.6} color="#ff5ea8" />
-
-      <Suspense fallback={<Loader />}>
-        <Bounds fit clip observe margin={1.15}>
-          <CharacterModel draggingRef={draggingRef} />
-        </Bounds>
-
-        <ContactShadows
-          position={[0, -1.4, 0]}
-          opacity={0.5}
-          scale={12}
-          blur={2.6}
-          far={4}
-          resolution={512}
-          color="#000000"
+      <Canvas
+        className="x-char-canvas"
+        shadows
+        dpr={[1, 1.6]}
+        gl={{
+          antialias: true,
+          alpha: true,
+          powerPreference: 'high-performance',
+          preserveDrawingBuffer: false,
+        }}
+        camera={{ position: [0, 0.4, 6], fov: 40, near: 0.1, far: 100 }}
+        onCreated={({ gl }) => {
+          gl.domElement.addEventListener(
+            'webglcontextlost',
+            () => setFailed(true),
+            { once: true }
+          );
+          // Prevent the canvas itself from consuming touch — the wrapper
+          // decides. This is critical for mobile vertical scroll.
+          gl.domElement.style.touchAction = 'pan-y';
+        }}
+        data-testid="hero-3d-canvas"
+      >
+        {/* Studio lighting — self-contained. */}
+        <ambientLight intensity={0.75} />
+        <directionalLight
+          position={[4, 6, 5]}
+          intensity={2.0}
+          castShadow
+          shadow-mapSize-width={1024}
+          shadow-mapSize-height={1024}
+          shadow-bias={-0.0001}
         />
-        <BakeShadows />
-      </Suspense>
+        <directionalLight position={[-5, 3, -4]} intensity={0.6} color="#ffffff" />
 
-      <OrbitControls
-        makeDefault
-        enablePan={false}
-        enableZoom={false}
-        enableDamping
-        dampingFactor={0.08}
-        rotateSpeed={0.9}
-        minPolarAngle={Math.PI / 3}
-        maxPolarAngle={Math.PI / 1.7}
-        onStart={onStart}
-        onEnd={onEnd}
-      />
+        <Suspense fallback={<Loader />}>
+          <Bounds fit clip observe margin={1.15}>
+            <CharacterModel dragOffsetRef={dragOffsetRef} />
+          </Bounds>
 
-      <AdaptiveDpr pixelated />
-      <AdaptiveEvents />
-    </Canvas>
+          <ContactShadows
+            position={[0, -1.4, 0]}
+            opacity={0.45}
+            scale={12}
+            blur={2.6}
+            far={4}
+            resolution={512}
+            color="#000000"
+          />
+          <BakeShadows />
+        </Suspense>
+
+        <AdaptiveDpr pixelated />
+        <AdaptiveEvents />
+      </Canvas>
+    </div>
   );
 }

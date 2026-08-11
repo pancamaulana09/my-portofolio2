@@ -5,14 +5,12 @@ import DecodeText from '../components/site/DecodeText';
 import GenArt from '../components/site/GenArt';
 import Manifesto from '../components/site/sections/Manifesto';
 import HorizontalShowcase from '../components/site/sections/HorizontalShowcase';
-import Achievements from '../components/site/sections/Achievements';
 import GiantFooter from '../components/site/sections/GiantFooter';
 import ShowcaseTheater from '../components/site/sections/ShowcaseTheater';
 import StatementIntro from '../components/site/sections/StatementIntro';
 import ScaleMedia from '../components/site/sections/ScaleMedia';
 import ArchiveIndex from '../components/site/sections/ArchiveIndex';
 import PosterField from '../components/site/sections/PosterField';
-import ReadySection from '../components/site/sections/ReadySection';
 import BlogJournal from '../components/site/sections/BlogJournal';
 import MosaicReveal from '../components/site/sections/MosaicReveal';
 import { genGridImages, statusWords, statement } from '../mock';
@@ -82,9 +80,7 @@ export default function Home() {
       <HorizontalShowcase />
       <ArchiveIndex />
       <PosterField />
-      <Achievements tone="dark" />
       <BlogJournal />
-      <ReadySection />
       <GiantFooter tone="light" />
     </main>
   );

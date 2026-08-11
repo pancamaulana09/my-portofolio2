@@ -45,6 +45,17 @@ Clone repo publik https://github.com/pancamaulana09/my-portofolio2.git, jalankan
   - `mock.js`: field `media` {video, videoPoster, poster, posterAlt, accent} pada project `gowes-cyclequest` (aksen merah #ff3b30) & `worvia-erp` (aksen emas #f5b52e)
   - `ProjectMedia.jsx` (components/site): section "( Campaign ) — Film & poster" di ProjectDetail; video 16:9 autoplay-muted via IntersectionObserver (play ≥50% terlihat, pause di luar), kontrol custom play/pause + mute (set DOM property langsung — atribut `muted` React tidak sync, sudah difix), preload=metadata + poster attr; poster tall dengan lightbox portal (Escape/klik untuk tutup, body scroll lock); reveal framer-motion; badge PROMO FILM warna aksen per project
   - Tested: autoplay ✅, unmute ✅, pause/resume ✅, auto-pause out-of-view ✅, lightbox open/close ✅, mobile stack ✅, kedua halaman project ✅
+- 2026-08-11 (sesi ini): **Hero Home redesign — editorial blue · pixel type · B&W 3D**
+  - Referensi visual: 2xa.studio/about (biru penuh, patung 3D B&W, mono type, layout editorial)
+  - `public/index.html`: tambahkan Google Font `VT323` (pixel/mono retro)
+  - `site.css`: `--x-pixel: 'VT323'`; redirect `--x-lime` → `#ffffff`; ganti semua hardcode `rgba(198,255,46,*)` → white rgba; rewrite blok `.x-hero` menjadi layout editorial (bg `--x-blue #1400ff`, `.x-hero-noise` scanlines + `.x-hero-grain` SVG noise + `.x-hero-brackets` frame + `.x-hero-ticker` + `.x-hero-giant` + `.x-hero-rows` + `.x-hero-strip`); responsive breakpoint 900px (giant 26vw, rows single-column, brackets hidden)
+  - `Hero.jsx` (rewrite): hapus GlitchCanvas / crowd / media upload / parallax; render `<Character3D>` full-viewport + `useCityClock` (JKT/ATH via Intl.DateTimeFormat, tick 30s); teks besar "Panca" + "M" ghost, 3 baris meta (role, tagline, city), bottom strip `SELECTED WORK · IN NO PARTICULAR ORDER`
+  - `Character3D.jsx` (rewrite): hapus OrbitControls; custom pointer handler di wrapper `<div>` — pointerdown menunda keputusan sampai gerakan cukup jauh (6px), jika `|dy|>|dx|` release pointer supaya page scroll (mobile Y-scroll pass-through); jika horizontal menang → `setPointerCapture` + akumulasi rotasi ke `dragOffsetRef`; `useFrame` menambah `autoRot.current += 0.35*delta` (auto L→R) lalu `rotation.y = autoRot + dragOffset`; canvas `touch-action: pan-y`, filter grayscale(1) contrast(1.1) supaya patung monokrom
+  - `Home.jsx`: hapus import + render `Achievements` (Capabilities) dan `ReadySection`
+  - Palette final Home: biru `#1400ff`, hitam `#0a0a09`, putih `#dededa/#f6f6f2` — **tidak ada** hijau/lime lagi di viewport utama
+  - Verified: desktop 1920×900 & mobile 390×844 screenshot ✅; `data-testid`: hero-section, hero-3d-layer, hero-3d-wrap, hero-3d-canvas, hero-giant, hero-ticker, hero-rows, hero-strip, hero-clock-jkt, hero-clock-ath; vertical touch drag di area 3D → scrollY naik 300px ✅
+
+
 
 ## Backlog
 - P2: Update link sosial asli lain di `mock.js` (GitHub sudah asli; email SUDAH diganti ke pancamaulana2003@gmail.com)
