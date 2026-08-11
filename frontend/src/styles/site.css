@@ -116,7 +116,7 @@
   height: 100%;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.14);
-  background: #0c0c0b;
+  background: #000;
 }
 .x-hzz-media img {
   width: 100%;
@@ -282,16 +282,16 @@
 /* ============ 2xA STUDIO CLONE — THEME ============ */
 
 :root {
-  --x-black: #0a0a09;
-  --x-ink: #131312;
-  --x-paper: #edebe6;
-  --x-paper2: #e3e1db;
-  --x-text-light: #dededa;
-  --x-text-dark: #161615;
-  --x-gray: #8f8f8a;
+  --x-black: #000;
+  --x-ink: #000;
+  --x-paper: #fff;
+  --x-paper2: #fff;
+  --x-text-light: #fff;
+  --x-text-dark: #000;
+  --x-gray: rgba(255, 255, 255, 0.55);
   --x-blue: #1400ff;
   --x-lime: #ffffff;
-  --x-red: #481010;
+  --x-red: #1400ff;
   --x-mono: 'Courier Prime', 'Courier New', monospace;
   --x-pixel: 'VT323', 'Courier Prime', 'Courier New', monospace;
   --x-grot: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -321,10 +321,10 @@ a, button, [role='button'], label, input, select {
 
 /* chunky terminal scrollbar */
 ::-webkit-scrollbar { width: 12px; }
-::-webkit-scrollbar-track { background: #0a0a09; }
+::-webkit-scrollbar-track { background: #000; }
 ::-webkit-scrollbar-thumb {
-  background: #e6e6e0;
-  border: 3px solid #0a0a09;
+  background: #fff;
+  border: 3px solid #000;
   border-radius: 10px;
 }
 
@@ -441,7 +441,7 @@ a, button, [role='button'], label, input, select {
   height: 100vh;
   height: 100svh;
   background: var(--x-blue);
-  color: #f6f6f2;
+  color: #fff;
   overflow: hidden;
   isolation: isolate;
 }
@@ -493,7 +493,7 @@ a, button, [role='button'], label, input, select {
   display: inline-block;
   width: 8px;
   height: 8px;
-  background: #f6f6f2;
+  background: #fff;
   margin-right: 8px;
   vertical-align: baseline;
   animation: xHeroBlink 1.6s steps(2) infinite;
@@ -642,15 +642,15 @@ a, button, [role='button'], label, input, select {
   font-size: 11px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #f6f6f2;
+  color: #fff;
   background: rgba(10, 10, 9, 0.28);
   border: 1px solid rgba(246, 246, 242, 0.45);
   padding: 7px 12px;
   transition: background 0.12s steps(2), color 0.12s steps(2);
 }
 .x-ghostbtn:hover {
-  background: #f6f6f2;
-  border-color: #f6f6f2;
+  background: #fff;
+  border-color: #fff;
   color: var(--x-blue);
 }
 
@@ -675,7 +675,7 @@ a, button, [role='button'], label, input, select {
 .x-sec-dark { background: var(--x-black); color: var(--x-text-light); }
 .x-sec-ink { background: var(--x-ink); color: var(--x-text-light); }
 .x-sec-light { background: var(--x-paper); color: var(--x-text-dark); }
-.x-sec-blue { background: var(--x-blue); color: #e9e9e4; }
+.x-sec-blue { background: var(--x-blue); color: #fff; }
 
 .x-pad { padding: 96px 16px; }
 
@@ -691,7 +691,7 @@ a, button, [role='button'], label, input, select {
 .x-projcard {
   display: block;
   overflow: hidden;
-  background: #0c0c0b;
+  background: #000;
   position: relative;
 }
 .x-projcard img {
@@ -768,7 +768,7 @@ a, button, [role='button'], label, input, select {
   position: fixed;
   inset: 0;
   z-index: 100;
-  background: #060605;
+  background: #000;
   display: flex;
   align-items: center;
   padding: 0 16px;
@@ -800,7 +800,7 @@ a, button, [role='button'], label, input, select {
   bottom: 56px;
   z-index: 90;
   width: min(380px, calc(100vw - 32px));
-  background: #0e0e0d;
+  background: #000;
   color: var(--x-text-light);
   border: 1px solid #2a2a28;
   padding: 18px;
@@ -853,7 +853,7 @@ a, button, [role='button'], label, input, select {
   letter-spacing: -0.035em;
   line-height: 0.98;
   font-size: clamp(30px, 4.2vw, 64px);
-  color: #e2e2dc;
+  color: #fff;
   margin-bottom: 20px;
 }
 .x-mosaic-desc {
@@ -1102,7 +1102,7 @@ a, button, [role='button'], label, input, select {
   position: relative;
   height: 100vh;
   height: 100svh;
-  background: #060605;
+  background: #000;
   overflow: hidden;
 }
 .x-theater-bg {
@@ -1188,7 +1188,7 @@ a, button, [role='button'], label, input, select {
   gap: 16px;
 }
 .x-arrowbtn {
-  color: #eceae6;
+  color: #fff;
   padding: 8px;
   border: 1px solid rgba(255, 255, 255, 0.35);
   background: rgba(8, 8, 8, 0.4);
@@ -1244,7 +1244,7 @@ a, button, [role='button'], label, input, select {
   letter-spacing: -0.04em;
   line-height: 1.04;
   font-size: clamp(32px, 6.2vw, 92px);
-  color: #161615;
+  color: #000;
   padding: 2px 0;
   transition: color 0.15s steps(2), transform 0.25s ease;
 }
@@ -1261,7 +1261,7 @@ a, button, [role='button'], label, input, select {
   z-index: 45;
   pointer-events: none;
   overflow: hidden;
-  border: 1px solid #161615;
+  border: 1px solid #000;
   box-shadow: 12px 14px 0 rgba(20, 0, 255, 0.9);
   animation: xFadeUp 0.2s both;
 }
@@ -1279,7 +1279,7 @@ a, button, [role='button'], label, input, select {
 .x-pfield {
   position: relative;
   min-height: 100vh;
-  background: #040404;
+  background: #000;
   overflow: hidden;
   perspective: 900px;
 }
@@ -1324,7 +1324,7 @@ a, button, [role='button'], label, input, select {
   z-index: 5;
 }
 .x-arrow-giant {
-  color: #e6e6e0;
+  color: #fff;
   transition: color 0.15s steps(2), transform 0.3s cubic-bezier(0.19, 1, 0.22, 1);
 }
 .x-arrow-giant svg {
@@ -1516,7 +1516,7 @@ html.x-cursor-down .x-cursor-ring {
 }
 .x-ready-btn--lime {
   background: var(--x-lime);
-  color: #0a0a09;
+  color: #000;
   border-color: var(--x-lime);
 }
 .x-ready-btn--lime:hover {
@@ -1528,7 +1528,7 @@ html.x-cursor-down .x-cursor-ring {
 }
 .x-ready-btn--ghost:hover {
   background: #fff;
-  color: #0a0a09;
+  color: #000;
   border-color: #fff;
 }
 .x-ready-marquee {
@@ -1612,7 +1612,7 @@ html.x-cursor-down .x-cursor-ring {
 .x-blog-card {
   display: block;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  background: #0e0e0d;
+  background: #000;
   padding: 14px 14px 18px;
   transition: border-color 0.2s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -1672,7 +1672,7 @@ html.x-cursor-down .x-cursor-ring {
   font-weight: 700;
   font-size: 15.5px;
   line-height: 1.35;
-  color: #e6e6e0;
+  color: #fff;
   margin-bottom: 10px;
 }
 .x-blog-card-excerpt {
@@ -1690,7 +1690,7 @@ html.x-cursor-down .x-cursor-ring {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  color: #d6d6d0;
+  color: #fff;
   border-bottom: 1px solid rgba(255, 255, 255, 0.35);
   padding-bottom: 3px;
   transition: color 0.15s ease, border-color 0.15s ease;
@@ -1763,7 +1763,7 @@ html.x-cursor-down .x-cursor-ring {
   font-weight: 700;
   font-size: 15px;
   letter-spacing: 0.02em;
-  color: #e6e6e0;
+  color: #fff;
   margin-bottom: 14px;
   padding-top: 14px;
   border-top: 1px solid rgba(255, 255, 255, 0.14);
@@ -1795,7 +1795,7 @@ html.x-cursor-down .x-cursor-ring {
   letter-spacing: -0.03em;
   line-height: 1;
   font-size: clamp(28px, 4vw, 56px);
-  color: #e2e2dc;
+  color: #fff;
 }
 .x-circ-stage {
   position: relative;
@@ -1858,7 +1858,7 @@ html.x-cursor-down .x-cursor-ring {
   font-weight: 700;
   font-size: 13.5px;
   line-height: 1.35;
-  color: #e6e6e0;
+  color: #fff;
   margin-bottom: 8px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
