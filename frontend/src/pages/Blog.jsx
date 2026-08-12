@@ -1,12 +1,14 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import DecodeText from '../components/site/DecodeText';
 import { BlogCard } from '../components/site/BlogCard';
-import { posts, blogIntro, blogStatusWords } from '../blogData';
+import { blogIntro, blogStatusWords } from '../blogData';
+import { useBlogPosts } from '../lib/blogApi';
 import { useSectionStatus } from '../lib/statusBus';
 
 export default function Blog() {
   const secRef = useRef(null);
   useSectionStatus(secRef, blogStatusWords);
+  const { data: posts = [] } = useBlogPosts();
   const count = String(posts.length).padStart(2, '0');
 
   return (

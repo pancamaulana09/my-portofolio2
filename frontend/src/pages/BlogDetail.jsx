@@ -1,9 +1,10 @@
-import React, { useRef, useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { ArrowLeft, Link2, Check } from 'lucide-react';
 import DecodeText from '../components/site/DecodeText';
 import CircularGallery from '../components/site/CircularGallery';
-import { posts, blogStatusWords } from '../blogData';
+import { blogStatusWords } from '../blogData';
+import { useBlogPosts } from '../lib/blogApi';
 import { useSectionStatus } from '../lib/statusBus';
 
 function ShareRow({ title }) {
@@ -41,6 +42,7 @@ export default function BlogDetail() {
   const { slug } = useParams();
   const secRef = useRef(null);
   useSectionStatus(secRef, blogStatusWords);
+  const { data: posts = [] } = useBlogPosts();
 
   useEffect(() => {
     window.scrollTo(0, 0);

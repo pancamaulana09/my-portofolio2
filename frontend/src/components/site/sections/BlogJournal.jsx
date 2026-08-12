@@ -1,8 +1,9 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useReducedMotion } from 'framer-motion';
-import { posts, blogStatusWords } from '../../../blogData';
+import { blogStatusWords } from '../../../blogData';
 import { BlogCard } from '../BlogCard';
+import { useBlogPosts } from '../../../lib/blogApi';
 import { useSectionStatus } from '../../../lib/statusBus';
 
 const EASE = [0.22, 1, 0.36, 1];
@@ -10,6 +11,7 @@ const EASE = [0.22, 1, 0.36, 1];
 export default function BlogJournal() {
   const ref = useRef(null);
   const reduce = useReducedMotion();
+  const { data: posts = [] } = useBlogPosts();
   useSectionStatus(ref, blogStatusWords);
 
   const reveal = (i) =>
