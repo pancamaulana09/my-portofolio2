@@ -1,79 +1,51 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { ExternalLink } from 'lucide-react';
+import { ArrowUpRight, ExternalLink } from 'lucide-react';
 import DecodeText from '../components/site/DecodeText';
 import GiantFooter from '../components/site/sections/GiantFooter';
 import { projects, projectsIntro, statusWords } from '../mock';
 import { useSectionStatus } from '../lib/statusBus';
 
 export default function Projects() {
-  const secRef = useRef(null);
-  useSectionStatus(secRef, statusWords.made);
+  const sectionRef = useRef(null);
+  useSectionStatus(sectionRef, statusWords.made);
 
   return (
-    <main data-testid="projects-page">
-      <section ref={secRef} className="x-sec-light min-h-screen">
-        <div className="x-pad pt-32 max-w-[1440px] mx-auto">
-          <DecodeText
-            text="Selected    Projects"
-            as="h1"
-            className="xh-giant mb-16"
-            speed={30}
-            testId="projects-heading"
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-28 max-w-[1100px]">
-            {projectsIntro.map((p, i) => (
-              <p key={i} className="x-body text-[#4a4a46]">
-                {p}
-              </p>
-            ))}
-          </div>
-
-          <div className="space-y-28">
-            {projects.map((p, i) => (
-              <article
-                key={p.id}
-                className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start"
-                data-testid={`project-item-${p.id}`}
-              >
-                <div className={`lg:col-span-5 ${i % 2 === 1 ? 'lg:order-2 lg:col-start-8' : ''}`}>
-                  <div className="x-label text-[#8f8f8a] mb-2">({p.num})</div>
-                  <DecodeText text={p.name} as="h2" className="xh-big mb-4" speed={40} />
-                  <div className="x-projtags">
-                    {p.fields.map((f) => (
-                      <span key={f} className="x-projtag">{f}</span>
-                    ))}
-                  </div>
-                  <p className="x-body text-[#4a4a46] max-w-[42ch] mb-6">{p.description}</p>
-                  <div className="flex items-center gap-6 flex-wrap">
-                    <Link to={`/projects/${p.id}`} className="x-label x-underline" data-testid={`projects-link-${p.id}`}>
-                      View project details
-                    </Link>
-                    {p.link && (
-                      <a
-                        href={p.link}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="x-label x-underline inline-flex items-center gap-1.5"
-                        data-testid={`projects-live-${p.id}`}
-                      >
-                        <ExternalLink size={12} /> Live site
-                      </a>
-                    )}
-                  </div>
-                </div>
-                <div className={`lg:col-span-7 ${i % 2 === 1 ? 'lg:order-1 lg:col-start-1' : ''}`}>
-                  <Link to={`/projects/${p.id}`} className="x-projcard" aria-label={p.name}>
-                    <img src={p.image} alt={p.name} loading="lazy" />
-                  </Link>
-                </div>
-              </article>
-            ))}
-          </div>
+    <main data-testid="projects-page" className="x-projects-page">
+      <section ref={sectionRef} className="x-projects-intro x-pad">
+        <p className="x-label">Selected work · systems with a point of view</p>
+        <DecodeText text="Work, made useful." as="h1" className="x-projects-title" speed={30} testId="projects-heading" />
+        <div className="x-projects-intro-copy">
+          {projectsIntro.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
         </div>
       </section>
-      <GiantFooter tone="light" />
+
+      <section className="x-projects-list x-pad" aria-label="Project archive">
+        {projects.map((project, index) => (
+          <article key={project.id} className="x-project-index-item" data-testid={`project-item-${project.id}`}>
+            <div className="x-project-index-copy">
+              <div className="x-project-index-meta x-label"><span>{project.num}</span><span>{project.year}</span><span>{project.fields[0]}</span></div>
+              <DecodeText text={project.name} as="h2" className="x-project-index-title" speed={32} />
+              <p>{project.description}</p>
+              <div className="x-project-index-actions">
+                <Link to={`/projects/${project.id}`} viewTransition className="x-project-index-link" data-testid={`projects-link-${project.id}`} data-cursor="project">
+                  Read case study <ArrowUpRight size={15} />
+                </Link>
+                {project.link && (
+                  <a href={project.link} target="_blank" rel="noreferrer" className="x-project-index-external" data-testid={`projects-live-${project.id}`}>
+                    Live site <ExternalLink size={13} />
+                  </a>
+                )}
+              </div>
+            </div>
+            <Link to={`/projects/${project.id}`} viewTransition className="x-project-index-media" aria-label={`Open ${project.name}`} data-cursor="project">
+              <img src={project.image} alt={project.name} loading={index < 2 ? 'eager' : 'lazy'} style={{ viewTransitionName: `project-${project.id}` }} />
+              <span className="x-project-index-media-label x-label">Open case study ↗</span>
+            </Link>
+          </article>
+        ))}
+      </section>
+      <GiantFooter tone="dark" />
     </main>
   );
 }

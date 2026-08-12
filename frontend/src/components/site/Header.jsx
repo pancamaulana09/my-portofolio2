@@ -1,66 +1,57 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { Menu, X } from 'lucide-react';
 import { site } from '../../mock';
 
-function useClock(tz) {
-  const [time, setTime] = useState('');
-  useEffect(() => {
-    const fmt = new Intl.DateTimeFormat('en-GB', {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false,
-      timeZone: tz,
-    });
-    const tick = () => setTime(fmt.format(new Date()));
-    tick();
-    const iv = setInterval(tick, 1000);
-    return () => clearInterval(iv);
-  }, [tz]);
-  return time;
-}
-
-function Clock({ label, tz }) {
-  const time = useClock(tz);
-  const [h = '', m = ''] = time.split(':');
-  const [blink, setBlink] = useState(true);
-  useEffect(() => {
-    const iv = setInterval(() => setBlink((b) => !b), 1000);
-    return () => clearInterval(iv);
-  }, []);
-  return (
-    <span className="x-label hidden md:inline-block whitespace-nowrap">
-      {label} {h}
-      <span style={{ opacity: blink ? 1 : 0.25 }}>:</span>
-      {m}
-    </span>
-  );
-}
-
 export default function Header() {
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const closeOnResize = () => {
+      if (window.innerWidth >= 768) setOpen(false);
+    };
+    window.addEventListener('resize', closeOnResize);
+    return () => window.removeEventListener('resize', closeOnResize);
+  }, []);
+
+  const closeMenu = () => setOpen(false);
+
   return (
-    <header className="x-header">
-      <div className="flex items-center justify-between px-4 py-3.5">
-        <div className="flex items-center gap-10 lg:gap-16">
-          <Link to="/" className="x-label x-navlink" data-testid="header-logo">
-            {site.logo}
-          </Link>
-          <div className="hidden md:flex items-center gap-10 lg:gap-16">
-            {site.clocks.map((c) => (
-              <Clock key={c.label} label={c.label} tz={c.tz} />
-            ))}
-          </div>
+    <header className={`x-header ${open ? 'is-menu-open' : ''}`}>
+      <div className="x-header-bar">
+        <Link to="/" className="x-header-mark" data-testid="header-logo" onClick={closeMenu}>
+          <span className="x-header-mark-dot" aria-hidden="true" />
+          {site.logo}
+        </Link>
+
+        <div className="x-header-context x-label" aria-hidden="true">
+          <span>Creative web developer</span>
+          <span>Surabaya · Indonesia</span>
         </div>
-        <nav className="flex items-center gap-4 md:gap-8" data-testid="header-nav">
-          {site.nav.map((n) => (
+
+        <button
+          className="x-menu-toggle"
+          type="button"
+          aria-label={open ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={open}
+          aria-controls="primary-navigation"
+          onClick={() => setOpen((value) => !value)}
+        >
+          {open ? <X size={18} aria-hidden="true" /> : <Menu size={18} aria-hidden="true" />}
+          <span className="x-label">{open ? 'Close' : 'Menu'}</span>
+        </button>
+
+        <nav id="primary-navigation" className="x-primary-nav" aria-label="Primary navigation" data-testid="header-nav">
+          {site.nav.map((item, index) => (
             <NavLink
-              key={n.path}
-              to={n.path}
-              data-testid={`nav-${n.label.toLowerCase()}`}
-              className={({ isActive }) =>
-                `x-label x-navlink ${isActive ? 'is-active' : ''}`
-              }
+              key={item.path}
+              to={item.path}
+              data-testid={`nav-${item.label.toLowerCase()}`}
+              className={({ isActive }) => `x-navlink ${isActive ? 'is-active' : ''}`}
+              onClick={closeMenu}
             >
-              {n.label}
+              <span className="x-nav-index">0{index + 1}</span>
+              <span>{item.label}</span>
             </NavLink>
           ))}
         </nav>

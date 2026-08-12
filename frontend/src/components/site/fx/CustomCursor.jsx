@@ -1,54 +1,52 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-// Reactive custom cursor: a fast dot + a lagging ring (spring-follow) that grows
-// over interactive elements and contracts on press. Uses mix-blend-difference so
-// it stays visible on both dark and light sections. Desktop / fine-pointer only.
+const INTERACTIVE_SELECTOR = 'a,button,[role="button"],input,textarea,select,label,.x-magnetic,[data-cursor="hover"],[data-cursor="project"]';
+
 export default function CustomCursor() {
   const ringRef = useRef(null);
   const dotRef = useRef(null);
   const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
-    const fine = window.matchMedia('(pointer: fine)').matches;
-    if (!fine) return undefined;
+    const finePointer = window.matchMedia('(pointer: fine)');
+    if (!finePointer.matches) return undefined;
 
-    setEnabled(true);
     const root = document.documentElement;
+    setEnabled(true);
     root.classList.add('x-has-cursor');
 
-    let mx = window.innerWidth / 2;
-    let my = window.innerHeight / 2;
-    let rx = mx;
-    let ry = my;
-    let rafId;
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let ringX = mouseX;
+    let ringY = mouseY;
+    let frameId;
 
-    const onMove = (e) => {
-      mx = e.clientX;
-      my = e.clientY;
-      if (dotRef.current) {
-        dotRef.current.style.transform = `translate3d(${mx}px, ${my}px, 0)`;
-      }
+    const followPointer = () => {
+      ringX += (mouseX - ringX) * 0.18;
+      ringY += (mouseY - ringY) * 0.18;
+      if (ringRef.current) ringRef.current.style.transform = `translate3d(${ringX}px, ${ringY}px, 0)`;
+      frameId = requestAnimationFrame(followPointer);
     };
-    const loop = () => {
-      rx += (mx - rx) * 0.18;
-      ry += (my - ry) * 0.18;
-      if (ringRef.current) {
-        ringRef.current.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
-      }
-      rafId = requestAnimationFrame(loop);
-    };
-    rafId = requestAnimationFrame(loop);
 
-    const SEL = 'a,button,[role="button"],input,textarea,select,label,.x-magnetic,[data-cursor="hover"]';
-    const onOver = (e) => {
-      if (e.target.closest && e.target.closest(SEL)) root.classList.add('x-cursor-hover');
+    const onMove = (event) => {
+      mouseX = event.clientX;
+      mouseY = event.clientY;
+      if (dotRef.current) dotRef.current.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
     };
-    const onOut = (e) => {
-      if (e.target.closest && e.target.closest(SEL)) root.classList.remove('x-cursor-hover');
+
+    const setCursorState = (target) => {
+      const interactive = target?.closest?.(INTERACTIVE_SELECTOR);
+      const project = target?.closest?.('[data-cursor="project"]');
+      root.classList.toggle('x-cursor-hover', Boolean(interactive));
+      root.classList.toggle('x-cursor-project', Boolean(project));
     };
+
+    const onOver = (event) => setCursorState(event.target);
+    const onOut = (event) => setCursorState(event.relatedTarget);
     const onDown = () => root.classList.add('x-cursor-down');
     const onUp = () => root.classList.remove('x-cursor-down');
 
+    frameId = requestAnimationFrame(followPointer);
     window.addEventListener('mousemove', onMove, { passive: true });
     document.addEventListener('mouseover', onOver);
     document.addEventListener('mouseout', onOut);
@@ -56,13 +54,13 @@ export default function CustomCursor() {
     window.addEventListener('mouseup', onUp);
 
     return () => {
-      cancelAnimationFrame(rafId);
+      cancelAnimationFrame(frameId);
       window.removeEventListener('mousemove', onMove);
       document.removeEventListener('mouseover', onOver);
       document.removeEventListener('mouseout', onOut);
       window.removeEventListener('mousedown', onDown);
       window.removeEventListener('mouseup', onUp);
-      root.classList.remove('x-has-cursor', 'x-cursor-hover', 'x-cursor-down');
+      root.classList.remove('x-has-cursor', 'x-cursor-hover', 'x-cursor-project', 'x-cursor-down');
     };
   }, []);
 

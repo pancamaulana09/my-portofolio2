@@ -1,16 +1,20 @@
-import React from 'react';
-import DotMatrix from '../DotMatrix';
+import { ArrowUpRight } from 'lucide-react';
+import { site } from '../../../mock';
 
-// Giant dot-matrix brand mark closing every page.
-export default function GiantFooter({ tone = 'light' }) {
-  const isDark = tone === 'dark';
+export default function GiantFooter({ tone = 'dark' }) {
+  const isLight = tone === 'light';
   return (
-    <section
-      className={`${isDark ? 'x-sec-dark' : 'x-sec-light'} pt-32 pb-20 px-4 overflow-hidden`}
-      data-testid="giant-footer"
-    >
-      <div className="max-w-[1440px] mx-auto flex justify-center">
-        <DotMatrix text="PANCA MAULANA" testId="footer-dotmatrix" />
+    <section className={`x-giant-footer ${isLight ? 'x-giant-footer--light' : ''}`} data-testid="giant-footer">
+      <div className="x-giant-footer-inner">
+        <p className="x-label">Have a project with momentum?</p>
+        <a href={site.emailHref} className="x-giant-footer-title" data-cursor="project">
+          Let’s make<br />it matter.<ArrowUpRight aria-hidden="true" />
+        </a>
+        <div className="x-giant-footer-meta x-label">
+          <span>Surabaya · Indonesia</span>
+          <span>{site.email}</span>
+          <a href="https://github.com/pancamaulana09" target="_blank" rel="noreferrer">GitHub ↗</a>
+        </div>
       </div>
     </section>
   );

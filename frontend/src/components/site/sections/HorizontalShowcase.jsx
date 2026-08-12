@@ -1,11 +1,11 @@
-import React, { useRef, useState, useEffect, useLayoutEffect, useCallback } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   motion,
+  useMotionValueEvent,
+  useReducedMotion,
   useScroll,
   useTransform,
-  useReducedMotion,
-  useMotionValueEvent,
 } from 'framer-motion';
 import { ArrowUpRight, ExternalLink } from 'lucide-react';
 import { projects, statusWords } from '../../../mock';
@@ -13,63 +13,69 @@ import { useSectionStatus } from '../../../lib/statusBus';
 
 const EASE = [0.22, 1, 0.36, 1];
 
-// A single project panel — used by both the pinned (desktop) and the native
-// swipe (mobile/reduced-motion) layouts. Entrance reveals fire when the panel
-// scrolls into the viewport (works for both horizontal modes via IntersectionObserver).
-function PanelCard({ p, index, reduce }) {
+function PanelCard({ project, index, reduce }) {
   const mediaReveal = reduce
     ? {}
     : {
-        initial: { scale: 1.14, opacity: 0 },
+        initial: { scale: 1.06, opacity: 0 },
         whileInView: { scale: 1, opacity: 1 },
         viewport: { once: true, margin: '0px -8% 0px -8%' },
-        transition: { duration: 0.9, ease: EASE },
+        transition: { duration: 0.8, ease: EASE },
       };
   const textReveal = reduce
     ? {}
     : {
-        initial: { y: 34, opacity: 0 },
+        initial: { y: 24, opacity: 0 },
         whileInView: { y: 0, opacity: 1 },
         viewport: { once: true, margin: '0px -6% 0px -6%' },
-        transition: { duration: 0.7, ease: EASE, delay: 0.08 },
+        transition: { duration: 0.65, ease: EASE, delay: 0.08 },
       };
 
   return (
-    <article className="x-hzz-panel" data-testid={`hzz-panel-${p.id}`}>
-      <div className="x-hzz-text">
-        <div className="x-hzz-num">{p.num}</div>
-        <motion.div {...textReveal}>
-          <h3 className="x-hzz-name">{p.name}</h3>
-          <div className="x-hzz-tags">
-            {p.fields.map((f) => (
-              <span key={f} className="x-hzz-tag">{f}</span>
-            ))}
-          </div>
-          <p className="x-hzz-desc">{p.description}</p>
-          <div className="x-hzz-links">
-            <Link to={`/projects/${p.id}`} className="x-hzz-link" data-testid={`hzz-view-${p.id}`}>
-              View project <ArrowUpRight size={15} />
-            </Link>
-            {p.link && (
-              <a href={p.link} target="_blank" rel="noreferrer" className="x-hzz-link x-hzz-link--lime">
-                Live site <ExternalLink size={13} />
-              </a>
-            )}
-          </div>
-        </motion.div>
-      </div>
+    <article className="x-hzz-panel" data-testid={`hzz-panel-${project.id}`}>
+      <motion.div className="x-hzz-text" {...textReveal}>
+        <div className="x-hzz-meta x-label">
+          <span>{project.num}</span>
+          <span>{project.year}</span>
+          <span>{project.client}</span>
+        </div>
+        <h3 className="x-hzz-name">{project.name}</h3>
+        <p className="x-hzz-desc">{project.description}</p>
+        <div className="x-hzz-tags" aria-label="Project disciplines">
+          {project.fields.slice(0, 3).map((field) => (
+            <span key={field} className="x-hzz-tag">{field}</span>
+          ))}
+        </div>
+        <div className="x-hzz-links">
+          <Link to={`/projects/${project.id}`} viewTransition className="x-hzz-link" data-testid={`hzz-view-${project.id}`} data-cursor="project">
+            Enter case study <ArrowUpRight size={15} />
+          </Link>
+          {project.link && (
+            <a href={project.link} target="_blank" rel="noreferrer" className="x-hzz-link x-hzz-link--secondary">
+              Live site <ExternalLink size={13} />
+            </a>
+          )}
+        </div>
+      </motion.div>
 
-      <div className="x-hzz-media">
-        <motion.img src={p.image} alt={p.name} draggable={false} loading={index < 2 ? 'eager' : 'lazy'} {...mediaReveal} />
-        <span className="x-hzz-year">{p.year}</span>
-      </div>
+      <Link to={`/projects/${project.id}`} viewTransition className="x-hzz-media" aria-label={`Open ${project.name} case study`} data-cursor="project">
+        <motion.img
+          src={project.image}
+          alt={project.name}
+          draggable={false}
+          loading={index < 2 ? 'eager' : 'lazy'}
+          style={{ viewTransitionName: `project-${project.id}` }}
+          {...mediaReveal}
+        />
+        <span className="x-hzz-image-label x-label">View project ↗</span>
+      </Link>
     </article>
   );
 }
 
 export default function HorizontalShowcase() {
-  const sectionRef = useRef(null); // tall outer section (drives scroll range)
-  const trackRef = useRef(null); // inner flex track (to measure width)
+  const sectionRef = useRef(null);
+  const trackRef = useRef(null);
   const reduce = useReducedMotion();
   const [isDesktop, setIsDesktop] = useState(false);
   const [scrollRange, setScrollRange] = useState(0);
@@ -77,21 +83,19 @@ export default function HorizontalShowcase() {
 
   useSectionStatus(sectionRef, statusWords.showcase);
 
-  // Mode: pinned horizontal only on wide, fine-pointer, motion-ok devices.
   useEffect(() => {
-    const mq = window.matchMedia('(min-width: 901px) and (pointer: fine)');
-    const rm = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const update = () => setIsDesktop(mq.matches && !rm.matches);
+    const desktop = window.matchMedia('(min-width: 901px) and (pointer: fine)');
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const update = () => setIsDesktop(desktop.matches && !reduced.matches);
     update();
-    mq.addEventListener('change', update);
-    rm.addEventListener('change', update);
+    desktop.addEventListener('change', update);
+    reduced.addEventListener('change', update);
     return () => {
-      mq.removeEventListener('change', update);
-      rm.removeEventListener('change', update);
+      desktop.removeEventListener('change', update);
+      reduced.removeEventListener('change', update);
     };
   }, []);
 
-  // Measure how far the track must travel horizontally.
   const measure = useCallback(() => {
     const track = trackRef.current;
     if (!track) return;
@@ -104,11 +108,11 @@ export default function HorizontalShowcase() {
       return undefined;
     }
     measure();
-    const ro = new ResizeObserver(measure);
-    if (trackRef.current) ro.observe(trackRef.current);
+    const observer = new ResizeObserver(measure);
+    if (trackRef.current) observer.observe(trackRef.current);
     window.addEventListener('resize', measure);
     return () => {
-      ro.disconnect();
+      observer.disconnect();
       window.removeEventListener('resize', measure);
     };
   }, [isDesktop, measure]);
@@ -121,77 +125,59 @@ export default function HorizontalShowcase() {
   const dotLeft = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
   const barScale = useTransform(scrollYProgress, [0, 1], [0.04, 1]);
 
-  useMotionValueEvent(scrollYProgress, 'change', (v) => {
-    const idx = Math.min(projects.length, Math.max(1, Math.round(v * (projects.length - 1)) + 1));
-    setActive((prev) => (prev === idx ? prev : idx));
+  useMotionValueEvent(scrollYProgress, 'change', (value) => {
+    const next = Math.min(projects.length, Math.max(1, Math.round(value * (projects.length - 1)) + 1));
+    setActive((current) => (current === next ? current : next));
   });
 
   const count = String(projects.length).padStart(2, '0');
+  const lead = (
+    <div className="x-hzz-panel x-hzz-panel--lead">
+      <p className="x-hzz-kicker x-label">Selected work · 2021—2025</p>
+      <h2 className="x-hzz-title">Proof<br />of practice<span>.</span></h2>
+      <p className="x-hzz-lead-desc">
+        Seven products across different systems and audiences. Each one begins with a real problem and ends as something people can use.
+      </p>
+      <div className="x-hzz-lead-count x-label"><strong>{count}</strong> project stories</div>
+    </div>
+  );
 
-  // ---------- Fallback: native swipe carousel (mobile / reduced-motion) ----------
   if (!isDesktop) {
     return (
-      <section ref={sectionRef} className="x-hzz x-hzz--fallback" data-testid="horizontal-showcase">
-        <div className="x-hzz-lead x-pad">
-          <div className="x-label x-hzz-kicker">Selected Work — swipe →</div>
-          <h2 className="x-hzz-title">Selected<br />Work</h2>
-        </div>
+      <section ref={sectionRef} id="selected-work" className="x-hzz x-hzz--fallback" data-testid="horizontal-showcase">
+        <div className="x-hzz-lead x-pad">{lead}</div>
         <div className="x-hzz-snap" data-testid="hzz-snap">
-          {projects.map((p, i) => (
-            <div className="x-hzz-snap-item" key={p.id}>
-              <PanelCard p={p} index={i} reduce={reduce} />
+          {projects.map((project, index) => (
+            <div className="x-hzz-snap-item" key={project.id}>
+              <PanelCard project={project} index={index} reduce={reduce} />
             </div>
           ))}
           <div className="x-hzz-snap-item x-hzz-end">
-            <Link to="/projects" className="x-hzz-endlink" data-testid="hzz-all">
-              All projects <ArrowUpRight size={22} />
-            </Link>
+            <Link to="/projects" className="x-hzz-endlink">Browse all work <ArrowUpRight size={22} /></Link>
           </div>
         </div>
       </section>
     );
   }
 
-  // ---------- Pinned horizontal scroll (desktop) ----------
   return (
     <section
       ref={sectionRef}
+      id="selected-work"
       className="x-hzz"
       style={{ height: `calc(${scrollRange}px + 100vh)` }}
       data-testid="horizontal-showcase"
     >
       <div className="x-hzz-stage">
         <motion.div ref={trackRef} className="x-hzz-track" style={{ x }}>
-          {/* Lead / intro panel */}
-          <div className="x-hzz-panel x-hzz-panel--lead">
-            <div className="x-label x-hzz-kicker">Selected Work</div>
-            <h2 className="x-hzz-title">
-              Selected<br />Work<span className="x-hzz-dot-accent">.</span>
-            </h2>
-            <p className="x-hzz-lead-desc">
-              Seven products across IoT, corporate web, e-commerce, safety, community, education and enterprise — carried from concept to a working thing. Scroll to move sideways.
-            </p>
-            <div className="x-hzz-lead-count x-label">
-              <span className="x-hzz-lime">{count}</span> projects
-            </div>
-          </div>
-
-          {projects.map((p, i) => (
-            <PanelCard key={p.id} p={p} index={i} reduce={reduce} />
-          ))}
-
-          {/* Closing panel */}
+          {lead}
+          {projects.map((project, index) => <PanelCard key={project.id} project={project} index={index} reduce={reduce} />)}
           <div className="x-hzz-panel x-hzz-panel--end">
-            <Link to="/projects" className="x-hzz-endlink" data-testid="hzz-all">
-              All<br />projects <ArrowUpRight size={40} />
-            </Link>
+            <Link to="/projects" className="x-hzz-endlink">Browse<br />all work <ArrowUpRight size={40} /></Link>
           </div>
         </motion.div>
 
-        {/* Progress + counter */}
-        <div className="x-hzz-counter x-label" data-testid="hzz-counter">
-          <span className="x-hzz-lime">{String(active).padStart(2, '0')}</span> / {count}
-        </div>
+        <div className="x-hzz-counter x-label" data-testid="hzz-counter"><strong>{String(active).padStart(2, '0')}</strong> / {count}</div>
         <div className="x-hzz-progress" aria-hidden="true">
           <motion.div className="x-hzz-progress-fill" style={{ scaleX: barScale }} />
           <motion.div className="x-hzz-progress-dot" style={{ left: dotLeft }} />
