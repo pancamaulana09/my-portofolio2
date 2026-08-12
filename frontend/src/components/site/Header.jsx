@@ -47,7 +47,7 @@ export default function Header() {
               key={item.path}
               to={item.path}
               data-testid={`nav-${item.label.toLowerCase()}`}
-              className={({ isActive }) => `x-navlink ${isActive ? 'is-active' : ''}`}
+              className={({ isActive }) => `x-navlink ${item.path === '/contact' ? 'x-navlink--contact' : ''} ${isActive ? 'is-active' : ''}`}
               onClick={closeMenu}
             >
               <span className="x-nav-index">0{index + 1}</span>

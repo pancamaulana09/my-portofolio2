@@ -2295,3 +2295,98 @@ html.x-cursor-project .x-cursor-ring::after { content: 'VIEW'; display: grid; pl
 @media (pointer: fine) {
   .x-hero-3d { pointer-events: auto; }
 }
+
+
+/* ---------------------------------------------------------------------
+   Integrated-practice index — original outcome-oriented capability layer.
+   --------------------------------------------------------------------- */
+.x-navlink--contact {
+  margin-left: 8px;
+  border: 1px solid rgba(243, 242, 236, 0.42);
+  color: var(--x-paper);
+}
+.x-navlink--contact:hover,
+.x-navlink--contact.is-active {
+  border-color: var(--x-paper);
+  background: var(--x-paper);
+  color: var(--x-ink);
+}
+
+.x-practice {
+  background: var(--x-paper);
+  color: var(--x-ink);
+  padding: clamp(88px, 13vw, 184px) var(--x-page-gutter);
+}
+.x-practice-inner { max-width: var(--x-page-max); margin: 0 auto; }
+.x-practice-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(260px, .55fr);
+  align-items: end;
+  gap: clamp(32px, 8vw, 144px);
+  padding-bottom: clamp(48px, 7vw, 96px);
+}
+.x-practice-intro .x-label { color: rgba(8, 8, 8, .56); }
+.x-practice-intro h2 {
+  max-width: 10ch;
+  margin: 20px 0 0;
+  font-family: var(--x-grot);
+  font-size: clamp(48px, 7.2vw, 116px);
+  font-weight: 500;
+  line-height: .85;
+  letter-spacing: -.07em;
+}
+.x-practice-intro > p {
+  margin: 0;
+  max-width: 31ch;
+  color: var(--x-muted-dark);
+  font-size: clamp(15px, 1.25vw, 18px);
+  line-height: 1.55;
+}
+.x-practice-grid { border-top: 1px solid var(--x-border-dark); }
+.x-practice-item {
+  display: grid;
+  grid-template-columns: 68px minmax(0, 1fr) auto;
+  gap: 20px;
+  align-items: start;
+  padding: 24px 0 28px;
+  border-bottom: 1px solid var(--x-border-dark);
+  transition: color var(--x-standard) var(--x-ease), padding-left var(--x-standard) var(--x-ease);
+}
+.x-practice-item:hover { color: var(--x-blue); padding-left: 14px; }
+.x-practice-number { padding-top: 6px; color: rgba(8, 8, 8, .48); }
+.x-practice-item h3 {
+  margin: 0;
+  font-family: var(--x-grot);
+  font-size: clamp(28px, 3.8vw, 58px);
+  font-weight: 500;
+  line-height: .95;
+  letter-spacing: -.055em;
+}
+.x-practice-item p { max-width: 53ch; margin: 12px 0 0; color: var(--x-muted-dark); font-size: 14px; line-height: 1.62; }
+.x-practice-mark { padding-top: 4px; font-family: var(--x-grot); font-size: clamp(28px, 3vw, 48px); line-height: .8; transition: transform var(--x-standard) var(--x-ease); }
+.x-practice-item:hover .x-practice-mark { transform: translate(6px, -6px); }
+.x-practice-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: clamp(48px, 7vw, 96px);
+  padding: 12px 0;
+  border-bottom: 1px solid var(--x-ink);
+  font-family: var(--x-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  transition: color var(--x-fast) var(--x-ease), gap var(--x-fast) var(--x-ease);
+}
+.x-practice-link:hover { color: var(--x-blue); gap: 17px; }
+
+@media (max-width: 900px) {
+  .x-navlink--contact { margin-left: 0; border: 0; }
+  .x-practice-intro { grid-template-columns: 1fr; gap: 28px; }
+  .x-practice-intro h2 { font-size: clamp(48px, 13vw, 76px); }
+  .x-practice-item { grid-template-columns: 42px minmax(0, 1fr) auto; gap: 12px; padding: 20px 0 23px; }
+  .x-practice-item h3 { font-size: clamp(28px, 8vw, 44px); }
+  .x-practice-item p { font-size: 13px; }
+  .x-practice-item:hover { padding-left: 0; }
+}

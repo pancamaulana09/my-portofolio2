@@ -1,5 +1,5 @@
 import Hero from '../components/site/Hero';
-import Manifesto from '../components/site/sections/Manifesto';
+import PracticeIndex from '../components/site/sections/PracticeIndex';
 import GiantFooter from '../components/site/sections/GiantFooter';
 import HorizontalShowcase from '../components/site/sections/HorizontalShowcase';
 import StatementIntro from '../components/site/sections/StatementIntro';
@@ -14,10 +14,8 @@ export default function Home() {
       <Hero />
       <StatementIntro label={statement.label} text={statement.text} testId="statement-section" />
       <MosaicReveal />
-      <div id="selected-work">
-        <HorizontalShowcase />
-      </div>
-      <Manifesto showReadMore />
+      <HorizontalShowcase />
+      <PracticeIndex />
       <ArchiveIndex />
       <BlogJournal />
       <GiantFooter tone="dark" />
