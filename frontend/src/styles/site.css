@@ -2986,7 +2986,7 @@ html.x-cursor-project .x-cursor-ring::after { content: 'VIEW'; display: grid; pl
   min-height: 0;
   display: block;
   overflow: hidden;
-  padding: clamp(86px, 12vh, 120px) 0 0;
+  padding: clamp(132px, 17vh, 180px) 0 0;
   background: var(--x-ink);
   isolation: isolate;
   place-items: center;
@@ -3020,11 +3020,11 @@ html.x-cursor-project .x-cursor-ring::after { content: 'VIEW'; display: grid; pl
 .x-about-video-hero.is-ready .x-about-video-hero-source { opacity: 0; }
 .x-about-video-hero.is-ready .x-about-video-hero-canvas { opacity: 1; }
 @media (max-width: 900px) {
-  .x-about-video-hero { height: auto; min-height: 0; padding: 78px 0 0; }
+  .x-about-video-hero { height: auto; min-height: 0; padding: 116px 0 0; }
   .x-about-video-hero-frame { width: 100%; }
 }
 @media (max-width: 560px) {
-  .x-about-video-hero { height: auto; min-height: 0; padding: 68px 0 0; }
+  .x-about-video-hero { height: auto; min-height: 0; padding: 92px 0 0; }
   .x-about-video-hero-frame { width: 100%; }
 }
 @media (prefers-reduced-motion: reduce) {
