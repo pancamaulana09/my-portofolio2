@@ -2982,8 +2982,8 @@ html.x-cursor-project .x-cursor-ring::after { content: 'VIEW'; display: grid; pl
    --------------------------------------------------------------------- */
 .x-about-video-hero {
   position: relative;
-  height: min(88svh, 840px);
-  min-height: 480px;
+  height: min(70svh, 640px);
+  min-height: 400px;
   overflow: hidden;
   background: var(--x-ink);
   isolation: isolate;
@@ -3010,10 +3010,10 @@ html.x-cursor-project .x-cursor-ring::after { content: 'VIEW'; display: grid; pl
 .x-about-video-hero.is-ready .x-about-video-hero-source { opacity: 0; }
 .x-about-video-hero.is-ready .x-about-video-hero-canvas { opacity: 1; }
 @media (max-width: 900px) {
-  .x-about-video-hero { height: min(84svh, 700px); min-height: 460px; }
+  .x-about-video-hero { height: min(66svh, 560px); min-height: 380px; }
 }
 @media (max-width: 560px) {
-  .x-about-video-hero { height: min(78svh, 560px); min-height: 400px; }
+  .x-about-video-hero { height: min(58svh, 460px); min-height: 320px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .x-about-video-hero-source { opacity: 1 !important; }
