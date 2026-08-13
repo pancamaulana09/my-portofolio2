@@ -823,91 +823,38 @@ a, button, [role='button'], label, input, select {
 
 /* ---------- mosaic scroll reveal ---------- */
 .x-mosaic {
-  position: relative;
-  height: 380vh;
+  display: grid;
+  min-height: 100svh;
+  padding: clamp(24px, 4vw, 72px);
   background: var(--x-black);
-  color: var(--x-text-light);
+  place-items: center;
 }
 .x-mosaic-stick {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-}
-.x-mosaic-inner {
+  display: grid;
   width: 100%;
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 0 clamp(16px, 4vw, 64px);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: clamp(24px, 4vw, 80px);
+  min-height: calc(100svh - clamp(48px, 8vw, 144px));
+  place-items: center;
 }
-.x-mosaic-copy { max-width: 420px; flex: 0 1 auto; }
-.x-mosaic-title {
-  font-family: var(--x-grot);
-  font-weight: 600;
-  letter-spacing: -0.035em;
-  line-height: 0.98;
-  font-size: clamp(30px, 4.2vw, 64px);
-  color: #fff;
-  margin-bottom: 20px;
+.x-mosaic-image {
+  display: block;
+  width: min(72vw, 900px);
+  max-width: 100%;
+  max-height: min(84svh, 900px);
+  object-fit: contain;
+  user-select: none;
 }
-.x-mosaic-desc {
-  font-family: var(--x-mono);
-  font-size: 13.5px;
-  line-height: 1.65;
-  color: #93938e;
-  max-width: 40ch;
-  margin-bottom: 28px;
-}
-.x-mosaic-meter {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  color: #8f8f8a;
-  border-top: 1px solid rgba(255, 255, 255, 0.14);
-  padding-top: 14px;
-  max-width: 220px;
-  justify-content: space-between;
-}
-.x-mosaic-frame {
-  position: relative;
-  flex: 0 0 auto;
-  height: min(78vh, 760px);
-  aspect-ratio: 2 / 3;
-  margin-right: clamp(0px, 3vw, 60px);
-}
-.x-mosaic-tile {
-  position: absolute;
-  background-repeat: no-repeat;
-  backface-visibility: hidden;
-  will-change: transform, opacity;
-}
-.x-mosaic-full {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity 0.25s ease;
-  pointer-events: none;
-}
-@media (max-width: 860px) {
-  .x-mosaic { height: 320vh; }
-  .x-mosaic-inner {
-    flex-direction: column;
-    justify-content: center;
-    gap: 22px;
-    padding-top: 76px;
+@media (max-width: 900px) {
+  .x-mosaic {
+    min-height: 86svh;
+    padding: clamp(20px, 5vw, 48px);
   }
-  .x-mosaic-copy { max-width: 100%; text-align: left; width: 100%; }
-  .x-mosaic-desc { margin-bottom: 14px; }
-  .x-mosaic-frame { height: min(56vh, 520px); margin-right: 0; }
+  .x-mosaic-stick { min-height: calc(86svh - clamp(40px, 10vw, 96px)); }
+  .x-mosaic-image { width: min(86vw, 700px); max-height: 74svh; }
+}
+@media (max-width: 560px) {
+  .x-mosaic { min-height: 72svh; padding: 20px; }
+  .x-mosaic-stick { min-height: calc(72svh - 40px); }
+  .x-mosaic-image { width: min(100%, 480px); max-height: 66svh; }
 }
 
 /* ---------- project campaign media (video ad + poster) ---------- */
