@@ -823,38 +823,65 @@ a, button, [role='button'], label, input, select {
 
 /* ---------- mosaic scroll reveal ---------- */
 .x-mosaic {
-  display: grid;
-  min-height: 100svh;
-  padding: clamp(24px, 4vw, 72px);
+  position: relative;
+  height: 340svh;
   background: var(--x-black);
-  place-items: center;
 }
 .x-mosaic-stick {
+  position: sticky;
+  top: 0;
   display: grid;
-  width: 100%;
-  min-height: calc(100svh - clamp(48px, 8vw, 144px));
+  height: 100svh;
+  overflow: hidden;
+  padding: clamp(20px, 4vw, 64px);
   place-items: center;
 }
-.x-mosaic-image {
+.x-mosaic-frame {
+  position: relative;
+  width: auto;
+  max-width: 86vw;
+  height: min(88svh, 920px);
+  aspect-ratio: 2 / 3;
+}
+.x-mosaic-frame--solo { margin: 0; }
+.x-mosaic-tile {
+  position: absolute;
+  background-repeat: no-repeat;
+  backface-visibility: hidden;
+  will-change: transform, opacity, filter;
+}
+.x-mosaic-full {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity .25s ease;
+  pointer-events: none;
+}
+.x-mosaic--reduced {
+  height: auto;
+  min-height: 100svh;
+}
+.x-mosaic--reduced .x-mosaic-stick { position: relative; }
+.x-mosaic-reduced-image {
   display: block;
-  width: min(72vw, 900px);
-  max-width: 100%;
-  max-height: min(84svh, 900px);
+  max-width: 86vw;
+  max-height: min(88svh, 920px);
   object-fit: contain;
-  user-select: none;
 }
 @media (max-width: 900px) {
-  .x-mosaic {
-    min-height: 86svh;
-    padding: clamp(20px, 5vw, 48px);
-  }
-  .x-mosaic-stick { min-height: calc(86svh - clamp(40px, 10vw, 96px)); }
-  .x-mosaic-image { width: min(86vw, 700px); max-height: 74svh; }
+  .x-mosaic { height: 300svh; }
+  .x-mosaic-stick { padding: clamp(20px, 5vw, 44px); }
+  .x-mosaic-frame { max-width: 90vw; height: min(78svh, 720px); }
+  .x-mosaic-reduced-image { max-width: 90vw; max-height: min(78svh, 720px); }
 }
 @media (max-width: 560px) {
-  .x-mosaic { min-height: 72svh; padding: 20px; }
-  .x-mosaic-stick { min-height: calc(72svh - 40px); }
-  .x-mosaic-image { width: min(100%, 480px); max-height: 66svh; }
+  .x-mosaic { height: 270svh; }
+  .x-mosaic-stick { padding: 20px; }
+  .x-mosaic-frame { max-width: calc(100vw - 40px); height: min(70svh, 620px); }
+  .x-mosaic-reduced-image { max-width: calc(100vw - 40px); max-height: min(70svh, 620px); }
 }
 
 /* ---------- project campaign media (video ad + poster) ---------- */
