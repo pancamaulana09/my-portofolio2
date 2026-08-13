@@ -129,10 +129,6 @@ export default function HorizontalShowcase() {
         </aside>
         <div ref={listRef} className="x-editorial-project-list">
           {projects.map((project, index) => <EditorialProject key={project.id} project={project} index={index} reduce={reduce} />)}
-          <div className="x-editorial-end-card">
-            <p className="x-label">The full archive</p>
-            <Link to="/projects" className="x-editorial-end-link">Browse all work <ArrowUpRight size={28} /></Link>
-          </div>
         </div>
       </div>
     </section>
