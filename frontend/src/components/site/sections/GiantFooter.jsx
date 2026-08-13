@@ -3,7 +3,8 @@ import { ArrowUpRight } from 'lucide-react';
 import { useReducedMotion } from 'framer-motion';
 import { site } from '../../../mock';
 
-const FOOTER_VIDEO_DURATION = 7.033333;
+const FOOTER_VIDEO_DURATION = 7.018;
+const FOOTER_VIDEO_FPS = 24;
 
 function clamp(value, min = 0, max = 1) {
   return Math.min(max, Math.max(min, value));
@@ -52,8 +53,8 @@ export default function GiantFooter() {
     setDuration(video.duration);
   };
 
-  const frame = duration ? Math.round(progress * duration * 30) : 0;
-  const totalFrames = duration ? Math.round(duration * 30) : 0;
+  const frame = duration ? Math.round(progress * duration * FOOTER_VIDEO_FPS) : 0;
+  const totalFrames = duration ? Math.round(duration * FOOTER_VIDEO_FPS) : 0;
 
   return (
     <section ref={sectionRef} className="x-giant-footer x-giant-footer--scrub" data-testid="giant-footer">
