@@ -83,6 +83,7 @@ function createProgram(gl) {
 
 export default function AboutVideoHero() {
   const heroRef = useRef(null);
+  const frameRef = useRef(null);
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const [isCanvasReady, setIsCanvasReady] = useState(false);
@@ -92,9 +93,10 @@ export default function AboutVideoHero() {
     if (shouldReduceMotion) return undefined;
 
     const hero = heroRef.current;
+    const frame = frameRef.current;
     const video = videoRef.current;
     const canvas = canvasRef.current;
-    if (!hero || !video || !canvas) return undefined;
+    if (!hero || !frame || !video || !canvas) return undefined;
 
     const gl = canvas.getContext('webgl', { alpha: false, antialias: false, powerPreference: 'high-performance' });
     if (!gl) return undefined;
@@ -132,7 +134,7 @@ export default function AboutVideoHero() {
     let pointer = [0.5, 0.5];
 
     const resize = () => {
-      const rect = hero.getBoundingClientRect();
+      const rect = frame.getBoundingClientRect();
       const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
       const dpr = Math.min(window.devicePixelRatio || 1, isCoarsePointer ? 1 : 1.5);
       width = Math.max(1, Math.round(rect.width * dpr));
@@ -143,7 +145,7 @@ export default function AboutVideoHero() {
     };
 
     const updatePointer = (event) => {
-      const rect = hero.getBoundingClientRect();
+      const rect = frame.getBoundingClientRect();
       pointer = [
         Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width)),
         Math.min(1, Math.max(0, 1 - (event.clientY - rect.top) / rect.height)),
@@ -196,10 +198,10 @@ export default function AboutVideoHero() {
     }, { threshold: 0.05 });
 
     const resizeObserver = new ResizeObserver(resize);
-    resizeObserver.observe(hero);
+    resizeObserver.observe(frame);
     intersectionObserver.observe(hero);
-    hero.addEventListener('pointermove', updatePointer, { passive: true });
-    hero.addEventListener('pointerdown', updatePointer, { passive: true });
+    frame.addEventListener('pointermove', updatePointer, { passive: true });
+    frame.addEventListener('pointerdown', updatePointer, { passive: true });
     video.addEventListener('loadedmetadata', resize, { once: true });
     resize();
 
@@ -208,8 +210,8 @@ export default function AboutVideoHero() {
       stopRender();
       resizeObserver.disconnect();
       intersectionObserver.disconnect();
-      hero.removeEventListener('pointermove', updatePointer);
-      hero.removeEventListener('pointerdown', updatePointer);
+      frame.removeEventListener('pointermove', updatePointer);
+      frame.removeEventListener('pointerdown', updatePointer);
       gl.deleteTexture(texture);
       gl.deleteBuffer(buffer);
       gl.deleteProgram(program);
@@ -218,18 +220,20 @@ export default function AboutVideoHero() {
 
   return (
     <section ref={heroRef} className={`x-about-video-hero${isCanvasReady ? ' is-ready' : ''}`} aria-label="About visual">
-      <video
-        ref={videoRef}
-        className="x-about-video-hero-source"
-        src={VIDEO_SRC}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        aria-hidden="true"
-      />
-      {!shouldReduceMotion && <canvas ref={canvasRef} className="x-about-video-hero-canvas" aria-hidden="true" />}
+      <div ref={frameRef} className="x-about-video-hero-frame">
+        <video
+          ref={videoRef}
+          className="x-about-video-hero-source"
+          src={VIDEO_SRC}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-hidden="true"
+        />
+        {!shouldReduceMotion && <canvas ref={canvasRef} className="x-about-video-hero-canvas" aria-hidden="true" />}
+      </div>
     </section>
   );
 }

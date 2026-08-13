@@ -2984,9 +2984,19 @@ html.x-cursor-project .x-cursor-ring::after { content: 'VIEW'; display: grid; pl
   position: relative;
   height: min(70svh, 640px);
   min-height: 400px;
+  display: grid;
   overflow: hidden;
+  padding: clamp(24px, 5vw, 72px);
   background: var(--x-ink);
   isolation: isolate;
+  place-items: center;
+}
+.x-about-video-hero-frame {
+  position: relative;
+  width: min(76vw, 980px);
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #000;
   touch-action: pan-y;
 }
 .x-about-video-hero-source,
@@ -3010,10 +3020,12 @@ html.x-cursor-project .x-cursor-ring::after { content: 'VIEW'; display: grid; pl
 .x-about-video-hero.is-ready .x-about-video-hero-source { opacity: 0; }
 .x-about-video-hero.is-ready .x-about-video-hero-canvas { opacity: 1; }
 @media (max-width: 900px) {
-  .x-about-video-hero { height: min(66svh, 560px); min-height: 380px; }
+  .x-about-video-hero { height: min(66svh, 560px); min-height: 380px; padding: clamp(20px, 5vw, 40px); }
+  .x-about-video-hero-frame { width: min(86vw, 720px); }
 }
 @media (max-width: 560px) {
-  .x-about-video-hero { height: min(58svh, 460px); min-height: 320px; }
+  .x-about-video-hero { height: min(58svh, 460px); min-height: 320px; padding: 16px; }
+  .x-about-video-hero-frame { width: min(92vw, 480px); }
 }
 @media (prefers-reduced-motion: reduce) {
   .x-about-video-hero-source { opacity: 1 !important; }
