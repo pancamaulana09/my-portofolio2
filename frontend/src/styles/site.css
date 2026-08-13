@@ -2723,3 +2723,59 @@ html.x-cursor-project .x-cursor-ring::after { content: 'VIEW'; display: grid; pl
 @media (prefers-reduced-motion: reduce) {
   .x-editorial-project-main-media img, .x-editorial-project-detail-media { will-change: auto; }
 }
+
+
+/* Horizontal motion layer for the selected-work editorial sequence. */
+@media (min-width: 901px) and (pointer: fine) {
+  .x-editorial-showcase--horizontal .x-editorial-showcase-shell {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+  .x-editorial-showcase--horizontal .x-editorial-showcase-stage {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    min-height: 680px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+  .x-editorial-showcase--horizontal .x-editorial-project-list {
+    display: flex;
+    align-items: center;
+    gap: clamp(42px, 6vw, 108px);
+    width: max-content;
+    padding: 0 max(8vw, 120px) 0 max(18vw, 240px);
+    will-change: transform;
+  }
+  .x-editorial-showcase--horizontal .x-editorial-project {
+    flex: 0 0 min(82vw, 1260px);
+    width: min(82vw, 1260px);
+    min-height: min(68vh, 700px);
+    grid-template-columns: minmax(225px, .36fr) minmax(0, 1fr);
+  }
+  .x-editorial-showcase--horizontal .x-editorial-project:nth-child(even) {
+    grid-template-columns: minmax(0, 1fr) minmax(225px, .36fr);
+  }
+  .x-editorial-showcase--horizontal .x-editorial-project-visual {
+    min-height: min(64vh, 650px);
+  }
+  .x-editorial-showcase--horizontal .x-editorial-rail {
+    position: absolute;
+    left: max(3vw, 44px);
+    top: 50%;
+    z-index: 7;
+    float: none;
+    margin: 0;
+  }
+  .x-editorial-showcase--horizontal .x-editorial-rail-line i {
+    transform-origin: top;
+    height: 100%;
+    transition: none;
+  }
+}
+
+@media (max-width: 900px), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .x-editorial-showcase-stage { display: block; }
+}
