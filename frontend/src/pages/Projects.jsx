@@ -1,29 +1,17 @@
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowUpRight, ExternalLink } from 'lucide-react';
 import DecodeText from '../components/site/DecodeText';
 import GiantFooter from '../components/site/sections/GiantFooter';
 import { projects, projectsIntro, statusWords } from '../mock';
 import { useSectionStatus } from '../lib/statusBus';
 
-function ProjectOverlapItem({ project, index, isLast }) {
-  const itemRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: itemRef,
-    offset: ['start end', 'end start'],
-  });
-
-  const scale = useTransform(scrollYProgress, [0, 0.72, 1], [1, 1, 0.955]);
-  const translateY = useTransform(scrollYProgress, [0, 0.76, 1], [0, 0, -28]);
-  const opacity = useTransform(scrollYProgress, [0, 0.78, 1], [1, 1, 0.68]);
-
+function ProjectOverlapItem({ project, index }) {
   return (
-    <motion.article
-      ref={itemRef}
+    <article
       className="x-project-index-item x-project-index-item--overlap"
       data-testid={`project-item-${project.id}`}
-      style={isLast ? { zIndex: index + 1 } : { zIndex: index + 1, scale, y: translateY, opacity }}
+      style={{ zIndex: index + 1 }}
     >
       <div className="x-project-index-copy">
         <div className="x-project-index-meta x-label">
@@ -48,7 +36,7 @@ function ProjectOverlapItem({ project, index, isLast }) {
         <img src={project.image} alt={project.name} loading={index < 2 ? 'eager' : 'lazy'} style={{ viewTransitionName: `project-${project.id}` }} />
         <span className="x-project-index-media-label x-label">Open case study ↗</span>
       </Link>
-    </motion.article>
+    </article>
   );
 }
 
@@ -66,13 +54,12 @@ export default function Projects() {
         </div>
       </section>
 
-      <section className="x-projects-list x-pad" aria-label="Project archive">
+      <section className="x-projects-list" aria-label="Project archive">
         {projects.map((project, index) => (
           <ProjectOverlapItem
             key={project.id}
             project={project}
             index={index}
-            isLast={index === projects.length - 1}
           />
         ))}
       </section>
