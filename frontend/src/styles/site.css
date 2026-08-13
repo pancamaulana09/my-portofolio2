@@ -2976,3 +2976,42 @@ html.x-cursor-project .x-cursor-ring::after { content: 'VIEW'; display: grid; pl
   .x-home-statement-layer::before { display: none; }
   .x-hero-scene, .x-hero-content { will-change: auto; }
 }
+
+/* ---------------------------------------------------------------------
+   About — text-free looping video hero with pixel-ripple treatment.
+   --------------------------------------------------------------------- */
+.x-about-video-hero {
+  position: relative;
+  height: 100svh;
+  min-height: 520px;
+  overflow: hidden;
+  background: var(--x-ink);
+  isolation: isolate;
+  touch-action: pan-y;
+}
+.x-about-video-hero-source,
+.x-about-video-hero-canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.x-about-video-hero-source {
+  object-fit: cover;
+  object-position: center;
+}
+.x-about-video-hero-canvas {
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 360ms var(--x-ease);
+}
+.x-about-video-hero.is-ready .x-about-video-hero-source { opacity: 0; }
+.x-about-video-hero.is-ready .x-about-video-hero-canvas { opacity: 1; }
+@media (max-width: 560px) {
+  .x-about-video-hero { min-height: 440px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .x-about-video-hero-source { opacity: 1 !important; }
+}

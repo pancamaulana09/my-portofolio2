@@ -1,4 +1,5 @@
 import React from 'react';
+import AboutVideoHero from '../components/site/sections/AboutVideoHero';
 import Manifesto from '../components/site/sections/Manifesto';
 import Expertise from '../components/site/sections/Expertise';
 import Team from '../components/site/sections/Team';
@@ -7,7 +8,8 @@ import GiantFooter from '../components/site/sections/GiantFooter';
 
 export default function About() {
   return (
-    <main className="pt-12" data-testid="about-page">
+    <main data-testid="about-page">
+      <AboutVideoHero />
       <Manifesto />
       <Expertise />
       <Team />
