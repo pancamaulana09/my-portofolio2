@@ -1,3 +1,5 @@
+import { useRef } from 'react';
+import { useScroll } from 'framer-motion';
 import Hero from '../components/site/Hero';
 import PracticeIndex from '../components/site/sections/PracticeIndex';
 import ProofGrid from '../components/site/sections/ProofGrid';
@@ -11,10 +13,22 @@ import MosaicReveal from '../components/site/sections/MosaicReveal';
 import { statement } from '../mock';
 
 export default function Home() {
+  const heroTransitionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: heroTransitionRef,
+    offset: ['start start', 'end end'],
+  });
+
   return (
     <main data-testid="home-page">
-      <Hero />
-      <StatementIntro label={statement.label} text={statement.text} testId="statement-section" />
+      <div ref={heroTransitionRef} className="x-home-hero-transition">
+        <div className="x-home-hero-layer">
+          <Hero scrollProgress={scrollYProgress} />
+        </div>
+        <div className="x-home-statement-layer">
+          <StatementIntro label={statement.label} text={statement.text} testId="statement-section" />
+        </div>
+      </div>
       <MosaicReveal />
       <HorizontalShowcase />
       <PracticeIndex />

@@ -2882,3 +2882,87 @@ html.x-cursor-project .x-cursor-ring::after { content: 'VIEW'; display: grid; pl
   .x-capability-tile, .x-capability-tile::before, .x-capability-mark, .x-capability-copy p { transition: none; }
   .x-capability-copy p { max-height: 108px; opacity: 1; transform: none; }
 }
+
+
+/* ---------------------------------------------------------------------
+   Homepage hero / statement handoff — layered, bidirectional scroll depth.
+   --------------------------------------------------------------------- */
+.x-home-hero-transition {
+  position: relative;
+  min-height: 174svh;
+  background: var(--x-paper);
+}
+.x-home-hero-layer {
+  position: sticky;
+  z-index: 1;
+  top: 0;
+  height: 100svh;
+  overflow: clip;
+  background: var(--x-blue);
+}
+.x-home-statement-layer {
+  position: relative;
+  z-index: 2;
+  margin-top: -23svh;
+  padding-top: 23svh;
+  border-radius: 34px 34px 0 0;
+  overflow: clip;
+  box-shadow: 0 -22px 54px rgba(3, 3, 26, .19);
+}
+.x-home-statement-layer::before {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  top: 14px;
+  left: 50%;
+  width: 36px;
+  height: 3px;
+  border-radius: 99px;
+  background: rgba(16, 16, 16, .24);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.x-home-statement-layer > * { position: relative; z-index: 2; }
+.x-hero-scene,
+.x-hero-content {
+  position: absolute;
+  inset: 0;
+  will-change: transform, opacity;
+  transform-origin: 50% 50%;
+}
+.x-hero-scene { z-index: 1; }
+.x-hero-content { z-index: 3; pointer-events: none; }
+.x-hero-content a { pointer-events: auto; }
+.x-hero-scene .x-hero-3d { position: absolute; }
+
+@media (max-width: 900px) {
+  .x-home-hero-transition { min-height: 150svh; }
+  .x-home-statement-layer {
+    margin-top: -15svh;
+    padding-top: 15svh;
+    border-radius: 24px 24px 0 0;
+  }
+  .x-home-statement-layer::before { top: 11px; }
+}
+
+@media (max-width: 560px) {
+  .x-home-hero-transition { min-height: 142svh; }
+  .x-home-statement-layer {
+    margin-top: -12svh;
+    padding-top: 12svh;
+    border-radius: 20px 20px 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .x-home-hero-transition { min-height: auto; }
+  .x-home-hero-layer { position: relative; height: 100svh; }
+  .x-home-statement-layer {
+    margin-top: 0;
+    padding-top: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .x-home-statement-layer::before { display: none; }
+  .x-hero-scene, .x-hero-content { will-change: auto; }
+}
