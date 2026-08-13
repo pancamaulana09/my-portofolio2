@@ -2986,14 +2986,14 @@ html.x-cursor-project .x-cursor-ring::after { content: 'VIEW'; display: grid; pl
   min-height: 400px;
   display: grid;
   overflow: hidden;
-  padding: clamp(24px, 5vw, 72px);
+  padding: clamp(86px, 12vh, 120px) clamp(20px, 5vw, 72px) clamp(28px, 4vh, 52px);
   background: var(--x-ink);
   isolation: isolate;
   place-items: center;
 }
 .x-about-video-hero-frame {
   position: relative;
-  width: min(76vw, 980px);
+  width: min(54vw, 600px);
   aspect-ratio: 16 / 9;
   overflow: hidden;
   background: #000;
@@ -3020,12 +3020,12 @@ html.x-cursor-project .x-cursor-ring::after { content: 'VIEW'; display: grid; pl
 .x-about-video-hero.is-ready .x-about-video-hero-source { opacity: 0; }
 .x-about-video-hero.is-ready .x-about-video-hero-canvas { opacity: 1; }
 @media (max-width: 900px) {
-  .x-about-video-hero { height: min(66svh, 560px); min-height: 380px; padding: clamp(20px, 5vw, 40px); }
-  .x-about-video-hero-frame { width: min(86vw, 720px); }
+  .x-about-video-hero { height: min(66svh, 560px); min-height: 380px; padding: 78px clamp(20px, 5vw, 40px) 28px; }
+  .x-about-video-hero-frame { width: min(68vw, 540px); }
 }
 @media (max-width: 560px) {
-  .x-about-video-hero { height: min(58svh, 460px); min-height: 320px; padding: 16px; }
-  .x-about-video-hero-frame { width: min(92vw, 480px); }
+  .x-about-video-hero { height: min(58svh, 460px); min-height: 320px; padding: 68px 16px 24px; }
+  .x-about-video-hero-frame { width: min(82vw, 380px); }
 }
 @media (prefers-reduced-motion: reduce) {
   .x-about-video-hero-source { opacity: 1 !important; }
