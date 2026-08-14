@@ -3030,3 +3030,122 @@ html.x-cursor-project .x-cursor-ring::after { content: 'VIEW'; display: grid; pl
 @media (prefers-reduced-motion: reduce) {
   .x-about-video-hero-source { opacity: 1 !important; }
 }
+
+/* ---------------------------------------------------------------------
+   Selected work — split editorial practice panel.
+   --------------------------------------------------------------------- */
+.x-editorial-split-panel {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(60px, 7vw, 102px) minmax(0, .92fr);
+  min-height: min(72vw, 780px);
+  overflow: hidden;
+  background: var(--x-blue);
+  color: #fff;
+  isolation: isolate;
+}
+.x-editorial-split-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: clamp(36px, 6.5vw, 104px);
+}
+.x-editorial-split-copy .x-label { color: rgba(255,255,255,.64); }
+.x-editorial-split-copy h3 {
+  max-width: 5.5ch;
+  margin: clamp(30px, 5vw, 72px) 0 clamp(26px, 4vw, 52px);
+  font-family: var(--x-grot);
+  font-size: clamp(64px, 8vw, 142px);
+  font-weight: 500;
+  line-height: .75;
+  letter-spacing: -.09em;
+}
+.x-editorial-split-copy h3 span { color: var(--x-ink); }
+.x-editorial-split-copy > p:not(.x-label) { max-width: 31ch; margin: 0; color: rgba(255,255,255,.78); font-size: 14px; line-height: 1.6; }
+.x-editorial-split-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: clamp(34px, 5vw, 62px);
+  padding-bottom: 5px;
+  border-bottom: 1px solid currentColor;
+  color: #fff;
+  font-family: var(--x-mono);
+  font-size: 10px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  transition: gap var(--x-fast) var(--x-ease), color var(--x-fast) var(--x-ease);
+}
+.x-editorial-split-link:hover, .x-editorial-split-link:focus-visible { gap: 14px; color: var(--x-ink); }
+.x-editorial-split-spine {
+  display: grid;
+  padding: 20px 0;
+  background: var(--x-ink);
+  color: var(--x-blue);
+  line-height: 1;
+  place-items: center;
+  text-align: center;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+.x-editorial-split-media {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  background: #141414;
+}
+.x-editorial-split-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(20,0,255,.2), transparent 58%);
+  pointer-events: none;
+}
+.x-editorial-split-media img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.08);
+  transform: scale(1.025);
+  transition: transform 900ms var(--x-ease), filter 600ms var(--x-ease);
+  will-change: transform, opacity;
+}
+.x-editorial-split-media:hover img, .x-editorial-split-media:focus-visible img { filter: grayscale(.12) contrast(1.04); transform: scale(1.065); }
+.x-editorial-split-media-label {
+  position: absolute;
+  z-index: 2;
+  right: 16px;
+  bottom: 15px;
+  color: #fff;
+  text-shadow: 0 1px 12px rgba(0,0,0,.52);
+}
+@media (min-width: 901px) and (pointer: fine) {
+  .x-editorial-showcase--horizontal .x-editorial-split-panel {
+    flex: 0 0 min(90vw, 1360px);
+    width: min(90vw, 1360px);
+    min-height: min(68vh, 700px);
+  }
+}
+@media (max-width: 900px), (pointer: coarse) {
+  .x-editorial-split-panel {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 48px minmax(360px, 65vw);
+    min-height: 0;
+  }
+  .x-editorial-split-copy { padding: clamp(36px, 8vw, 64px) var(--x-page-gutter); }
+  .x-editorial-split-copy h3 { margin: 36px 0 28px; font-size: clamp(64px, 15vw, 112px); }
+  .x-editorial-split-spine { padding: 0 18px; writing-mode: horizontal-tb; transform: none; }
+  .x-editorial-split-media { min-height: 360px; }
+}
+@media (max-width: 560px) {
+  .x-editorial-split-panel { grid-template-rows: auto 42px minmax(270px, 74vw); }
+  .x-editorial-split-copy { padding: 36px 20px 40px; }
+  .x-editorial-split-copy h3 { font-size: clamp(56px, 16vw, 82px); }
+  .x-editorial-split-copy > p:not(.x-label) { font-size: 13px; }
+  .x-editorial-split-media { min-height: 270px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .x-editorial-split-media img { transform: none !important; will-change: auto; }
+}

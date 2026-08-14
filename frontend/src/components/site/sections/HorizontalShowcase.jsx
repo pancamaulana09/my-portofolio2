@@ -95,6 +95,49 @@ function EditorialProject({ project, index, reduce, horizontal }) {
   );
 }
 
+function StudioSplitPanel({ mediaProject, reduce, horizontal }) {
+  const mediaReveal = reduce || horizontal
+    ? {}
+    : {
+        initial: { opacity: 0, scale: 1.06 },
+        whileInView: { opacity: 1, scale: 1 },
+        viewport: { once: true, amount: 0.3 },
+        transition: { duration: 0.9, ease: EASE },
+      };
+
+  return (
+    <article className="x-editorial-split-panel" aria-label="Creative web development practice">
+      <div className="x-editorial-split-copy">
+        <p className="x-label">Practice note · digital systems</p>
+        <h3>Make ideas<br />move<span>.</span></h3>
+        <p>I connect interface craft, creative technology and practical engineering to turn a rough brief into a digital experience people can actually use.</p>
+        <Link to="/about" className="x-editorial-split-link">About the practice <ArrowUpRight size={16} /></Link>
+      </div>
+
+      <div className="x-editorial-split-spine x-label" aria-hidden="true">Creative web development · systems in motion</div>
+
+      <Link
+        to={`/projects/${mediaProject.id}`}
+        viewTransition
+        className="x-editorial-split-media"
+        aria-label={`Open ${mediaProject.name} case study`}
+        data-cursor="project"
+      >
+        <motion.img
+          src={mediaProject.image}
+          alt={mediaProject.name}
+          loading="lazy"
+          decoding="async"
+          draggable={false}
+          style={{ viewTransitionName: `project-${mediaProject.id}` }}
+          {...mediaReveal}
+        />
+        <span className="x-editorial-split-media-label x-label">Selected direction · View project ↗</span>
+      </Link>
+    </article>
+  );
+}
+
 export default function HorizontalShowcase() {
   const sectionRef = useRef(null);
   const stageRef = useRef(null);
@@ -186,7 +229,9 @@ export default function HorizontalShowcase() {
             <span>{String(active).padStart(2, '0')} / {count}</span>
           </aside>
           <motion.div ref={trackRef} className="x-editorial-project-list" style={isDesktop ? { x } : undefined}>
-            {projects.map((project, index) => <EditorialProject key={project.id} project={project} index={index} reduce={reduce} horizontal={isDesktop} />)}
+            {projects.slice(0, 2).map((project, index) => <EditorialProject key={project.id} project={project} index={index} reduce={reduce} horizontal={isDesktop} />)}
+            <StudioSplitPanel mediaProject={projects[4]} reduce={reduce} horizontal={isDesktop} />
+            {projects.slice(2).map((project, index) => <EditorialProject key={project.id} project={project} index={index + 2} reduce={reduce} horizontal={isDesktop} />)}
           </motion.div>
         </div>
       </div>
