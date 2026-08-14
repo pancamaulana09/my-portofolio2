@@ -3037,7 +3037,7 @@ html.x-cursor-project .x-cursor-ring::after { content: 'VIEW'; display: grid; pl
 .x-editorial-split-panel {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) clamp(60px, 7vw, 102px) minmax(0, .92fr);
+  grid-template-columns: minmax(0, 1.42fr) clamp(64px, 8vw, 112px) minmax(0, 1fr);
   min-height: min(72vw, 780px);
   overflow: hidden;
   background: var(--x-blue);
@@ -3056,7 +3056,7 @@ html.x-cursor-project .x-cursor-ring::after { content: 'VIEW'; display: grid; pl
   max-width: 5.5ch;
   margin: clamp(30px, 5vw, 72px) 0 clamp(26px, 4vw, 52px);
   font-family: var(--x-grot);
-  font-size: clamp(64px, 8vw, 142px);
+  font-size: clamp(72px, 8.8vw, 160px);
   font-weight: 500;
   line-height: .75;
   letter-spacing: -.09em;
@@ -3123,9 +3123,9 @@ html.x-cursor-project .x-cursor-ring::after { content: 'VIEW'; display: grid; pl
 }
 @media (min-width: 901px) and (pointer: fine) {
   .x-editorial-showcase--horizontal .x-editorial-split-panel {
-    flex: 0 0 min(90vw, 1360px);
-    width: min(90vw, 1360px);
-    min-height: min(68vh, 700px);
+    flex: 0 0 100vw;
+    width: 100vw;
+    min-height: min(72vh, 740px);
   }
 }
 @media (max-width: 900px), (pointer: coarse) {
@@ -3134,7 +3134,7 @@ html.x-cursor-project .x-cursor-ring::after { content: 'VIEW'; display: grid; pl
     grid-template-rows: auto 48px minmax(360px, 65vw);
     min-height: 0;
   }
-  .x-editorial-split-copy { padding: clamp(36px, 8vw, 64px) var(--x-page-gutter); }
+  .x-editorial-split-copy { padding: clamp(40px, 8vw, 72px) var(--x-page-gutter); }
   .x-editorial-split-copy h3 { margin: 36px 0 28px; font-size: clamp(64px, 15vw, 112px); }
   .x-editorial-split-spine { padding: 0 18px; writing-mode: horizontal-tb; transform: none; }
   .x-editorial-split-media { min-height: 360px; }
