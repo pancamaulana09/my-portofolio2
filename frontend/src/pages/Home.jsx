@@ -5,7 +5,6 @@ import PracticeIndex from '../components/site/sections/PracticeIndex';
 import ProofGrid from '../components/site/sections/ProofGrid';
 import SignalScreen from '../components/site/sections/SignalScreen';
 import GiantFooter from '../components/site/sections/GiantFooter';
-import HorizontalShowcase from '../components/site/sections/HorizontalShowcase';
 import StatementIntro from '../components/site/sections/StatementIntro';
 import BlogJournal from '../components/site/sections/BlogJournal';
 import MosaicReveal from '../components/site/sections/MosaicReveal';
@@ -29,7 +28,6 @@ export default function Home() {
         </div>
       </div>
       <MosaicReveal />
-      <HorizontalShowcase />
       <PracticeIndex />
       <ProofGrid />
       <SignalScreen />
