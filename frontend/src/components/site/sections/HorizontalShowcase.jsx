@@ -139,6 +139,17 @@ export default function HorizontalShowcase() {
               </div>
             </section>
 
+            <section className="x-work-panel x-work-panel--avec">
+              <span className="x-label">Working belief</span>
+              <h3>AVEC</h3>
+              <div className="x-work-quote-block">
+                <span className="x-work-quote-mark" aria-hidden="true">“</span>
+                <p className="x-work-quote-text">Good digital work should feel clear for people and solid for the business behind it.</p>
+                <p>That balance lives in the details: a responsive interface, reliable systems, and the patience to refine what matters.</p>
+                <p>Ideas become useful when the final experience can keep moving after launch.</p>
+              </div>
+            </section>
+
             <section className="x-work-panel x-work-panel--focus">
               <span className="x-label">Focus</span>
               <strong>Systems<br /><em>in motion.</em></strong>
