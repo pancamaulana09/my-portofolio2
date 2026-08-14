@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { useScroll } from 'framer-motion';
 import Hero from '../components/site/Hero';
 import PracticeIndex from '../components/site/sections/PracticeIndex';
+import HorizontalShowcase from '../components/site/sections/HorizontalShowcase';
 import ProofGrid from '../components/site/sections/ProofGrid';
 import SignalScreen from '../components/site/sections/SignalScreen';
 import GiantFooter from '../components/site/sections/GiantFooter';
@@ -29,6 +30,7 @@ export default function Home() {
       </div>
       <MosaicReveal />
       <PracticeIndex />
+      <HorizontalShowcase />
       <ProofGrid />
       <SignalScreen />
       <BlogJournal />
